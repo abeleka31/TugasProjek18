@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package eazysorder.view;
 
 import javafx.geometry.Insets;
@@ -77,10 +76,12 @@ public class Menu1 {
         menuGrid.setAlignment(Pos.CENTER);
 
         // Sample menu items
-        String[] items = {"Donut", "Coffee", "Tea", "Sandwich", "Salad", "Juice", "Smoothie", "Cake", "Pie", "Muffin", "babi", "anj"};
+        String[] items = { "Donut", "Coffee", "Tea", "Sandwich", "Salad", "Juice", "Smoothie", "Cake", "Pie",
+                "Muffin" };
         int itemCount = items.length;
 
-        // Calculate number of columns dynamically based on the available width and button size
+        // Calculate number of columns dynamically based on the available width and
+        // button size
         double availableWidth = menuArea.getPrefWidth() - 2 * PADDING;
         int columns = (int) Math.floor(availableWidth / BUTTON_HEIGHT);
 
@@ -92,7 +93,7 @@ public class Menu1 {
             Button menuItemButton = new Button();
             menuItemButton.setPrefSize(BUTTON_HEIGHT, BUTTON_HEIGHT); // Setting size for buttons
             menuItemButton.getStyleClass().add("menu-item-button");
-            
+
             Label itemNameLabel = new Label(items[i]);
             itemNameLabel.setAlignment(Pos.CENTER);
             itemNameLabel.setPrefWidth(BUTTON_HEIGHT);
@@ -159,28 +160,3 @@ public class Menu1 {
         return order;
     }
 }
-=======
-package eazysorder.view;
-
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-
-public class Menu1 {
-    private Scene scene;
-
-    public Scene tampilkanMenu1() {
-        Button lanjut = new Button("Lanjut ->");
-        Button kembali = new Button("<- Kembali");
-
-        Pane pane = new Pane();
-        pane.getChildren().addAll(lanjut, kembali);
-        VBox root = new VBox(pane);
-
-        scene = new Scene(root, 1280, 700);
-        return scene;
-
-    }
-}
->>>>>>> f48e2078cc0638222f2d24d94dbad635278daf87
