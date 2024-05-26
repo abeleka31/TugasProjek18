@@ -1,0 +1,28 @@
+/* style.css */
+.root {
+    -fx-background-image: url('/pic/Utamabg.jpg');
+    -fx-newImage-image: url('/pic/gambarcewek.png');
+    -fx-background-size: cover;
+}
+
+.label {
+    -fx-font-size: 33px;
+    -fx-text-fill: white;
+    -fx-font-weight: serif;
+    -fx-font-family: "Times New Roman", Times, serif;
+}
+
+.button {
+    -fx-background-color: #D2A679;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #b58860;
+}
