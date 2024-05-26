@@ -1,23 +1,22 @@
-<<<<<<< HEAD
 /* Style.css */
 .root {
     -fx-background-color: #000000, #c89116 ; /* Corrected to use background-color instead of background-fill */
+    -fx-background-image: url("/pic/Tiga.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
 }
-
 
 #tomboladmin{
     -fx-background-image: url("/pic/Dua.jpg");
     -fx-background-radius: 15;
     -fx-border-radius: 15;
-    
 }
+
 #tomboluser {
     -fx-background-image: url("/pic/Dua.jpg");
     -fx-background-radius: 15; /* Sesuaikan angka 15 dengan jumlah kelengkungan yang diinginkan */
     -fx-border-radius: 15; /* Tambahkan ini jika Anda juga ingin melengkungkan sudut border */
 }
-
-
 
 /* menu1 */
 #mainarea{
@@ -29,19 +28,13 @@
 
 #order{
     -fx-background-color: #5D5D5D;
-    
 }
 #atas{
-    
     -fx-background-color: #5D5D5D;
 }
 #pane1{
     -fx-background-color: #f9f6f6;
-
 }
-
-
-
 
 /* Tombol atas */
 .transparent-button {
@@ -57,20 +50,4 @@
     -fx-background-color: #4e4d4d; /* Membuat latar belakang transparan */
     -fx-border-width: 1px; /* Lebar border saat hover */
     -fx-border-radius: 15; /* Membuat sudut border melengkung, sesuaikan dengan kebutuhan Anda */
-    
-=======
-.root{
-    -fx-background-image: url("/pic/Tiga.jpg") ;
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
-}
-
-#tomboladmin{
-    -fx-background-image: url("/pic/Dua.jpg");
-    
-}
-#tomboluser{
-    -fx-background-image: url("/pic/Dua.jpg");
-    
->>>>>>> f48e2078cc0638222f2d24d94dbad635278daf87
 }
