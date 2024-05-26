@@ -1,0 +1,60 @@
+/* Style.css */
+.root {
+    -fx-background-color: #000000, #c89116 ; /* Corrected to use background-color instead of background-fill */
+}
+
+
+#tomboladmin{
+    -fx-background-image: url("/pic/Dua.jpg");
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    
+}
+#tomboluser {
+    -fx-background-image: url("/pic/Dua.jpg");
+    -fx-background-radius: 15; /* Sesuaikan angka 15 dengan jumlah kelengkungan yang diinginkan */
+    -fx-border-radius: 15; /* Tambahkan ini jika Anda juga ingin melengkungkan sudut border */
+}
+
+
+
+/* menu1 */
+#mainarea{
+    -fx-background-color: #383838;
+}
+#menuarea{
+    -fx-background-color: #383838;
+}
+
+#order{
+    -fx-background-color: #5D5D5D;
+    
+}
+#atas{
+    
+    -fx-background-color: #5D5D5D;
+}
+#pane1{
+    -fx-background-color: #f9f6f6;
+
+}
+
+
+
+
+/* Tombol atas */
+.transparent-button {
+    -fx-background-color: #494848; 
+    -fx-border-color: transparent; 
+    -fx-text-fill: rgb(255, 255, 255); 
+    -fx-font-size: 14px; 
+    -fx-border-width: 1px; 
+    -fx-border-radius: 15; 
+}
+.transparent-button:hover {
+    -fx-text-fill: rgb(14, 14, 14); 
+    -fx-background-color: #4e4d4d; /* Membuat latar belakang transparan */
+    -fx-border-width: 1px; /* Lebar border saat hover */
+    -fx-border-radius: 15; /* Membuat sudut border melengkung, sesuaikan dengan kebutuhan Anda */
+    
+}
