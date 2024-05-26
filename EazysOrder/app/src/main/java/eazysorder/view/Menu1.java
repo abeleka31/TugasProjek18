@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package eazysorder.view;
 
 import javafx.geometry.Insets;
@@ -158,3 +159,28 @@ public class Menu1 {
         return order;
     }
 }
+=======
+package eazysorder.view;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+
+public class Menu1 {
+    private Scene scene;
+
+    public Scene tampilkanMenu1() {
+        Button lanjut = new Button("Lanjut ->");
+        Button kembali = new Button("<- Kembali");
+
+        Pane pane = new Pane();
+        pane.getChildren().addAll(lanjut, kembali);
+        VBox root = new VBox(pane);
+
+        scene = new Scene(root, 1280, 700);
+        return scene;
+
+    }
+}
+>>>>>>> f48e2078cc0638222f2d24d94dbad635278daf87

@@ -1,0 +1,14 @@
+.root{
+    -fx-background-image: url("/pic/Tiga.jpg") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+#tomboladmin{
+    -fx-background-image: url("/pic/Dua.jpg");
+    
+}
+#tomboluser{
+    -fx-background-image: url("/pic/Dua.jpg");
+    
+}
