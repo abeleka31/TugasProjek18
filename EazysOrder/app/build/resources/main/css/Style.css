@@ -1,14 +1,88 @@
-.root{
-    -fx-background-image: url("/pic/Tiga.jpg") ;
+/* Style.css */
+.root {
+    -fx-background-color:  linear-gradient( #000000 , #c89116);
+    -fx-newImage-image: url('/pic/patrik.png');
+    -fx-newImage1-image: url('/pic/memepilfiks.png');
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
 
-#tomboladmin{
-    -fx-background-image: url("/pic/Dua.jpg");
-    
+.scene2 {
+    -fx-background-color:  linear-gradient( #000000 , #c89116);
+    -fx-newImage-image: url('/pic/patrik.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
 }
-#tomboluser{
-    -fx-background-image: url("/pic/Dua.jpg");
-    
+#tomboladmin{
+    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-font-size: 63px;
+    -fx-text-fill: white;
+    -fx-font-weight: serif;
+    -fx-font-family: "Times New Roman", Times, serif;
+}
+
+#takeaway {
+    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-font-size: 63px;
+    -fx-text-fill: white;
+    -fx-font-weight: serif;
+    -fx-font-family: "Times New Roman", Times, serif;
+}
+
+#takein {
+    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-font-size: 63px;
+    -fx-text-fill: white;
+    -fx-font-weight: serif;
+    -fx-font-family: "Times New Roman", Times, serif;
+}
+
+#tomboluser {
+    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
+    -fx-background-radius: 15; /* Sesuaikan angka 15 dengan jumlah kelengkungan yang diinginkan */
+    -fx-border-radius: 15; /* Tambahkan ini jika Anda juga ingin melengkungkan sudut border */
+    -fx-font-size: 63px;
+    -fx-text-fill: white;
+    -fx-font-weight: serif;
+    -fx-font-family: "Times New Roman", Times, serif;
+}
+
+/* menu1 */
+#mainarea{
+    -fx-background-color: #383838;
+}
+#menuarea{
+    -fx-background-color: #383838;
+}
+
+#order{
+    -fx-background-color: #5D5D5D;
+}
+#atas{
+    -fx-background-color: #5D5D5D;
+}
+#pane1{
+    -fx-background-color: #f9f6f6;
+}
+
+/* Tombol atas */
+.transparent-button {
+    -fx-background-color: #494848; 
+    -fx-border-color: transparent; 
+    -fx-text-fill: rgb(255, 255, 255); 
+    -fx-font-size: 14px; 
+    -fx-border-width: 1px; 
+    -fx-border-radius: 15; 
+}
+.transparent-button:hover {
+    -fx-text-fill: rgb(14, 14, 14); 
+    -fx-background-color: #4e4d4d; /* Membuat latar belakang transparan */
+    -fx-border-width: 1px; /* Lebar border saat hover */
+    -fx-border-radius: 15; /* Membuat sudut border melengkung, sesuaikan dengan kebutuhan Anda */
 }

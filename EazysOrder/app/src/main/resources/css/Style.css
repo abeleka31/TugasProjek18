@@ -1,21 +1,56 @@
 /* Style.css */
 .root {
-    -fx-background-color: #000000, #c89116 ; /* Corrected to use background-color instead of background-fill */
-    -fx-background-image: url("/pic/Tiga.jpg");
+    -fx-background-color:  linear-gradient( #000000 , #c89116);
+    -fx-newImage-image: url('/pic/patrik.png');
+    -fx-newImage1-image: url('/pic/memepilfiks.png');
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
 
+.scene2 {
+    -fx-background-color:  linear-gradient( #000000 , #c89116);
+    -fx-newImage-image: url('/pic/patrik.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
 #tomboladmin{
-    -fx-background-image: url("/pic/Dua.jpg");
+    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
     -fx-background-radius: 15;
     -fx-border-radius: 15;
+    -fx-font-size: 63px;
+    -fx-text-fill: white;
+    -fx-font-weight: serif;
+    -fx-font-family: "Times New Roman", Times, serif;
+}
+
+#takeaway {
+    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-font-size: 63px;
+    -fx-text-fill: white;
+    -fx-font-weight: serif;
+    -fx-font-family: "Times New Roman", Times, serif;
+}
+
+#takein {
+    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-font-size: 63px;
+    -fx-text-fill: white;
+    -fx-font-weight: serif;
+    -fx-font-family: "Times New Roman", Times, serif;
 }
 
 #tomboluser {
-    -fx-background-image: url("/pic/Dua.jpg");
+    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
     -fx-background-radius: 15; /* Sesuaikan angka 15 dengan jumlah kelengkungan yang diinginkan */
     -fx-border-radius: 15; /* Tambahkan ini jika Anda juga ingin melengkungkan sudut border */
+    -fx-font-size: 63px;
+    -fx-text-fill: white;
+    -fx-font-weight: serif;
+    -fx-font-family: "Times New Roman", Times, serif;
 }
 
 /* menu1 */
