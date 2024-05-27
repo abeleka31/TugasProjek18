@@ -1,15 +1,11 @@
 package eazysorder.view;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 import eazysorder.App;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class MainScene {
     private App app;
@@ -21,7 +17,6 @@ public class MainScene {
     }
 
     private void mainScreen() {
-
         Image newImage = new Image(getClass().getResource("/pic/patrik.png").toExternalForm());
         ImageView imageView1 = new ImageView(newImage);
         imageView1.setFitWidth(831);
@@ -29,12 +24,24 @@ public class MainScene {
         imageView1.setLayoutX(-58);
         imageView1.setLayoutY(76);
 
-        Button tombolUser = createButton("Pesan", "tomboluser", 772, 100, event -> opsiPengambilan());
-
-        Button tombolAdmin = createButton("Admin", "tomboladmin", 772, 410, event -> {
-            app.tampilkanAdminScene();
+        Button tombolUser = new Button("PESAN");
+        tombolUser.setId("pesan");
+        tombolUser.setPrefSize(306, 136);
+        tombolUser.setLayoutX(767);
+        tombolUser.setLayoutY(168);
+        tombolUser.setOnAction(event -> {
+            opsiPengambilan();
         });
 
+        Button tombolAdmin = new Button("Admin");
+        tombolAdmin.setId("admin");
+        tombolAdmin.setPrefSize(306, 136);
+        tombolAdmin.setLayoutX(767);
+        tombolAdmin.setLayoutY(409);
+        tombolAdmin.setOnAction(event -> {
+            app.tampilkanAdminScene();
+        });
+        
         Pane pane = new Pane();
         pane.getChildren().addAll(tombolAdmin, tombolUser, imageView1);
         VBox root = new VBox(pane);
@@ -43,7 +50,9 @@ public class MainScene {
         applyStylesheet();
     }
 
-    private void opsiPengambilan() {
+    
+
+    void opsiPengambilan() {
         Image newImage1 = new Image(getClass().getResource("/pic/memepilfiks.png").toExternalForm());
         ImageView imageView2 = new ImageView(newImage1);
         imageView2.setFitWidth(623);
@@ -51,33 +60,42 @@ public class MainScene {
         imageView2.setLayoutX(328);
         imageView2.setLayoutY(-8);
 
-        Button takein = createButton("Take In", "takein", 150, 295, event -> {
-            Menu1 menu = new Menu1();
+        
+        Button takein = new Button("DINE IN");
+        takein.setId("takein");
+        takein.setLayoutX(210);
+        takein.setLayoutY(270);
+        takein.setPrefSize(306, 136);
+        takein.setOnAction(event -> {
+            Menu1 menu = new Menu1(this, scene);
             Scene menuScene = menu.tampilkanMenu1();
-            app.getPrimaryStage().setScene(menuScene);
+            App.getPrimaryStage().setScene(menuScene);
         });
 
-        Button takeaway = createButton("Take Away", "takeaway", 692, 295, event -> {
-            Menu1 menu = new Menu1();
+        Button takeaway = new Button("TAKE AWAY");
+        takeaway.setId("takeaway");
+        takeaway.setLayoutX(748);
+        takeaway.setLayoutY(270);
+        takeaway.setPrefSize(306, 136);
+        takeaway.setOnAction(event -> {
+            Menu1 menu = new Menu1(this, scene);
             Scene menuScene = menu.tampilkanMenu1();
-            app.getPrimaryStage().setScene(menuScene);
+            App.getPrimaryStage().setScene(menuScene);
+        });
+        
+        Button kembali = new Button("<- Kembali");
+        kembali.setId("balik");
+        kembali.setLayoutX(40);
+        kembali.setLayoutY(614);
+        kembali.setPrefSize(124, 47);
+        kembali.setOnAction(event -> {
+            app.tampilkanSceneUtama();
         });
 
         Pane pane = new Pane();
-        pane.getChildren().addAll(imageView2, takeaway, takein);
+        pane.getChildren().addAll(imageView2, takeaway, takein, kembali);
         VBox vBox = new VBox(pane);
         scene.setRoot(vBox);
-    }
-
-    private Button createButton(String text, String id, double x, double y, EventHandler<ActionEvent> eventHandler) {
-        Button button = new Button(text);
-        button.setId(id);
-        button.setLayoutX(x);
-        button.setLayoutY(y);
-        button.setMinWidth(446);
-        button.setMinHeight(205);
-        button.setOnAction(eventHandler);
-        return button;
     }
 
     private void applyStylesheet() {

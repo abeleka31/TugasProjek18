@@ -1,89 +1,78 @@
 package eazysorder.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 public class Order {
-    private final IntegerProperty id = new SimpleIntegerProperty();
-    private final IntegerProperty foodId = new SimpleIntegerProperty();
-    private final StringProperty customerName = new SimpleStringProperty();
-    private final IntegerProperty quantity = new SimpleIntegerProperty();
-    private final StringProperty foodName = new SimpleStringProperty();
-    public Order(){
+    private int id;
+    private int foodId;
+    private int quantity;
+    private String customerName;
+    private String foodName;
 
-    }
-    public Order(int foodId, String customerName, int quantity){
-        this.foodId.set(foodId);
-        this.customerName.set(customerName);
-        this.quantity.set(quantity);
+    // Constructors
+    public Order(int id, int foodId, int quantity, String customerName) {
+        this.id = id;
+        this.foodId = foodId;
+        this.quantity = quantity;
+        this.customerName = customerName;
     }
 
-  // id
+    public Order(int foodId, int quantity, String customerName) {
+        this.foodId = foodId;
+        this.quantity = quantity;
+        this.customerName = customerName;
+    }
+
+    // Default constructor for use in OrderController
+    public Order() {}
+
+    // Getters and Setters
     public int getId() {
-        return id.get();
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
-    }
-
-    public IntegerProperty idProperty() {
         return id;
     }
 
-    // foodId
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getFoodId() {
-        return foodId.get();
-    }
-
-    public void setFoodId(int foodId) {
-        this.foodId.set(foodId);
-    }
-
-    public IntegerProperty foodIdProperty() {
         return foodId;
     }
 
-    // customerName
-    public String getCustomerName() {
-        return customerName.get();
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName.set(customerName);
-    }
-
-    public StringProperty customerNameProperty() {
-        return customerName;
-    }
-
-    // quantity
     public int getQuantity() {
-        return quantity.get();
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity.set(quantity);
-    }
-
-    public IntegerProperty quantityProperty() {
         return quantity;
     }
 
-    // foodName
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
     public String getFoodName() {
-        return foodName.get();
+        return foodName;
     }
 
     public void setFoodName(String foodName) {
-        this.foodName.set(foodName);
+        this.foodName = foodName;
     }
 
-    public StringProperty foodNameProperty() {
-        return foodName;
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", foodId=" + foodId +
+                ", quantity=" + quantity +
+                ", customerName='" + customerName + '\'' +
+                ", foodName='" + foodName + '\'' +
+                '}';
     }
 }
-
-

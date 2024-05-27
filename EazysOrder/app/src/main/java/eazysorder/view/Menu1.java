@@ -1,5 +1,6 @@
 package eazysorder.view;
 
+import eazysorder.App;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,12 +11,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import eazysorder.controller.FoodController;
+import eazysorder.model.Food;
+
+import java.util.List;
 
 public class Menu1 {
     private Scene scene;
-    private static final double BUTTON_HEIGHT = 150; // Button height remains constant
-    private static final double V_GAP = 50;
+    private MainScene mainScene;
+    private static final double BUTTON_HEIGHT = 150;
+    private static final double V_GAP = 100;
     private static final double PADDING = 80;
+    private FoodController foodController = new FoodController();
+    private Scene previousScene; // Menyimpan referensi ke Scene sebelumnya
+
+    public Menu1(MainScene mainScene, Scene previousScene) {
+        this.mainScene = mainScene;
+        this.previousScene = previousScene;
+    }
 
     public Scene tampilkanMenu1() {
         Pane mainPane = createMainArea();
@@ -65,36 +78,29 @@ public class Menu1 {
     private Pane createMenuArea() {
         Pane menuArea = new Pane();
         menuArea.setId("menuarea");
-        menuArea.setPrefSize(929, 541); // Set preferred size for demonstration
-        menuArea.setLayoutX(0); // Set x position for menuArea
-        menuArea.setLayoutY(159); // Set y position for menuArea
-        menuArea.setStyle("-fx-border-color: black; -fx-border-width: 2;"); // Optional: visualize the area
+        menuArea.setPrefSize(929, 541);
+        menuArea.setLayoutX(0);
+        menuArea.setLayoutY(159);
+        menuArea.setStyle("-fx-border-color: black; -fx-border-width: 2;");
 
         GridPane menuGrid = new GridPane();
         menuGrid.setPadding(new Insets(PADDING));
         menuGrid.setVgap(V_GAP);
         menuGrid.setAlignment(Pos.CENTER);
 
-        // Sample menu items
-        String[] items = { "Donut", "Coffee", "Tea", "Sandwich", "Salad", "Juice", "Smoothie", "Cake", "Pie",
-                "Muffin" };
-        int itemCount = items.length;
+        List<Food> foodList = foodController.getAllFood();
+        int itemCount = foodList.size();
 
-        // Calculate number of columns dynamically based on the available width and
-        // button size
         double availableWidth = menuArea.getPrefWidth() - 2 * PADDING;
         int columns = (int) Math.floor(availableWidth / BUTTON_HEIGHT);
+        double horizontalGap = (availableWidth - columns * BUTTON_HEIGHT + 20) / (columns + 1);
 
-        // Calculate the horizontal gap to make the left and right margins symmetrical
-        double horizontalGap = (availableWidth - columns * BUTTON_HEIGHT) / (columns + 1);
-
-        // Add buttons and labels to the grid
-        for (int i = 0; i < items.length; i++) {
+        for (int i = 0; i < foodList.size(); i++) {
             Button menuItemButton = new Button();
-            menuItemButton.setPrefSize(BUTTON_HEIGHT, BUTTON_HEIGHT); // Setting size for buttons
+            menuItemButton.setPrefSize(BUTTON_HEIGHT, BUTTON_HEIGHT);
             menuItemButton.getStyleClass().add("menu-item-button");
 
-            Label itemNameLabel = new Label(items[i]);
+            Label itemNameLabel = new Label(foodList.get(i).getName()+"\nRp. " + foodList.get(i).getPrice());
             itemNameLabel.setAlignment(Pos.CENTER);
             itemNameLabel.setPrefWidth(BUTTON_HEIGHT);
 
@@ -106,14 +112,12 @@ public class Menu1 {
             menuGrid.add(menuItemBox, col, row);
         }
 
-        // Set horizontal gap for the grid
         menuGrid.setHgap(horizontalGap);
 
-        // Wrap the GridPane in a ScrollPane
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(menuGrid);
-        scrollPane.setFitToWidth(true); // Ensure the ScrollPane fits the width of its content
-        scrollPane.setPrefSize(929, 541); // Set preferred size for the ScrollPane
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefSize(929, 541);
 
         menuArea.getChildren().add(scrollPane);
         return menuArea;
@@ -126,7 +130,7 @@ public class Menu1 {
         pane1.setLayoutX(10);
         pane1.setLayoutY(163);
 
-        Button lanjut = new Button("Lanjut ->");
+        Button lanjut = new Button("Lanjut =>");
         lanjut.setLayoutX(172);
         lanjut.setLayoutY(609);
         lanjut.setPrefSize(150, 56);
@@ -135,6 +139,9 @@ public class Menu1 {
         kembali.setLayoutX(8);
         kembali.setLayoutY(609);
         kembali.setPrefSize(150, 56);
+        kembali.setOnAction(event -> {
+            App.getPrimaryStage().setScene(previousScene); // Mengatur scene sebelumnya
+        });
 
         Label namaOrder = new Label("Order : ");
         namaOrder.setLayoutX(14);

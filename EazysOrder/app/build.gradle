@@ -24,6 +24,7 @@ dependencies {
     implementation 'org.openjfx:javafx-fxml:20'
     implementation 'org.openjfx:javafx-base:20'
     implementation 'org.openjfx:javafx-graphics:20'
+    implementation 'org.xerial:sqlite-jdbc:3.34.0'
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'

@@ -7,11 +7,11 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
-    private Stage primaryStage;
+    private static Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+        App.primaryStage = primaryStage;
         primaryStage.setTitle("Eazys Order");
         tampilkanSceneUtama();
     }
@@ -32,7 +32,7 @@ public class App extends Application {
         launch(args);
     }
 
-    public Stage getPrimaryStage() {
+    public static Stage getPrimaryStage() {
         return primaryStage;
     }
 }
