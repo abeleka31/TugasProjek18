@@ -1,29 +1,29 @@
 package eazysorder.view;
 
-import eazysorder.App;
+import eazysorder.model.Food;
+import eazysorder.controller.FoodController;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import eazysorder.controller.FoodController;
-import eazysorder.model.Food;
+import eazysorder.App;
 
+import java.net.URL;
 import java.util.List;
 
 public class Menu1 {
-    private Scene scene;
     private MainScene mainScene;
-    private static final double BUTTON_HEIGHT = 150;
-    private static final double V_GAP = 100;
-    private static final double PADDING = 80;
+    private Scene previousScene;
     private FoodController foodController = new FoodController();
-    private Scene previousScene; // Menyimpan referensi ke Scene sebelumnya
+    private TableView<Food> tablePesanan;
+    private Label totalHarga;
 
     public Menu1(MainScene mainScene, Scene previousScene) {
         this.mainScene = mainScene;
@@ -33,7 +33,7 @@ public class Menu1 {
     public Scene tampilkanMenu1() {
         Pane mainPane = createMainArea();
 
-        scene = new Scene(mainPane, 1280, 700);
+        Scene scene = new Scene(mainPane, 1280, 700);
         String css = this.getClass().getResource("/css/Style.css").toExternalForm();
         scene.getStylesheets().add(css);
         return scene;
@@ -84,25 +84,24 @@ public class Menu1 {
         menuArea.setStyle("-fx-border-color: black; -fx-border-width: 2;");
 
         GridPane menuGrid = new GridPane();
-        menuGrid.setPadding(new Insets(PADDING));
-        menuGrid.setVgap(V_GAP);
+        menuGrid.setPadding(new Insets(80));
+        menuGrid.setVgap(100);
         menuGrid.setAlignment(Pos.CENTER);
 
         List<Food> foodList = foodController.getAllFood();
         int itemCount = foodList.size();
 
-        double availableWidth = menuArea.getPrefWidth() - 2 * PADDING;
-        int columns = (int) Math.floor(availableWidth / BUTTON_HEIGHT);
-        double horizontalGap = (availableWidth - columns * BUTTON_HEIGHT + 20) / (columns + 1);
+        double availableWidth = menuArea.getPrefWidth() - 2 * 80;
+        int columns = (int) Math.floor(availableWidth / 150);
+        double horizontalGap = (availableWidth - columns * 150 + 20) / (columns + 1);
 
         for (int i = 0; i < foodList.size(); i++) {
-            Button menuItemButton = new Button();
-            menuItemButton.setPrefSize(BUTTON_HEIGHT, BUTTON_HEIGHT);
-            menuItemButton.getStyleClass().add("menu-item-button");
+            Food food = foodList.get(i);
+            Button menuItemButton = createMenuItemButton(food);
 
-            Label itemNameLabel = new Label(foodList.get(i).getName()+"\nRp. " + foodList.get(i).getPrice());
+            Label itemNameLabel = new Label(food.getName() + "\nRp. " + food.getPrice());
             itemNameLabel.setAlignment(Pos.CENTER);
-            itemNameLabel.setPrefWidth(BUTTON_HEIGHT);
+            itemNameLabel.setPrefWidth(150);
 
             VBox menuItemBox = new VBox(menuItemButton, itemNameLabel);
             menuItemBox.setAlignment(Pos.CENTER);
@@ -110,6 +109,12 @@ public class Menu1 {
             int col = i % columns;
             int row = i / columns;
             menuGrid.add(menuItemBox, col, row);
+
+            menuItemButton.setOnAction(event -> {
+                Food selectedFood = foodList.get(col + row * columns);
+                tablePesanan.getItems().add(selectedFood);
+                totalHarga.setText("TOTAL = Rp. " + calculateTotalPrice(tablePesanan.getItems()));
+            });
         }
 
         menuGrid.setHgap(horizontalGap);
@@ -123,13 +128,31 @@ public class Menu1 {
         return menuArea;
     }
 
-    private Pane bagianOrderan() {
-        Pane pane1 = new Pane();
-        pane1.setId("pane1");
-        pane1.setPrefSize(325, 359);
-        pane1.setLayoutX(10);
-        pane1.setLayoutY(163);
+    private Button createMenuItemButton(Food food) {
+        Button menuItemButton = new Button();
+        menuItemButton.setPrefSize(150, 150);
+        menuItemButton.getStyleClass().add("menu-item-button");
 
+        String imagePath = food.getImagePath();
+        if (imagePath != null) {
+            URL imageUrl = getClass().getResource(imagePath            );
+            if (imageUrl != null) {
+                menuItemButton.setStyle("-fx-background-image: url('" + imageUrl.toExternalForm() + "'); " +
+                        "-fx-background-size: cover; " +
+                        "-fx-background-position: center;");
+            } else {
+                System.out.println("Image not found: " + imagePath);
+                // Handle default image or notify user
+            }
+        } else {
+            System.out.println("Image path is null for food: " + food.getName());
+            // Handle default image or notify user
+        }
+
+        return menuItemButton;
+    }
+
+    private Pane bagianOrderan() {
         Button lanjut = new Button("Lanjut =>");
         lanjut.setLayoutX(172);
         lanjut.setLayoutY(609);
@@ -140,7 +163,7 @@ public class Menu1 {
         kembali.setLayoutY(609);
         kembali.setPrefSize(150, 56);
         kembali.setOnAction(event -> {
-            App.getPrimaryStage().setScene(previousScene); // Mengatur scene sebelumnya
+            App.getPrimaryStage().setScene(previousScene);
         });
 
         Label namaOrder = new Label("Order : ");
@@ -153,9 +176,24 @@ public class Menu1 {
         nama.setLayoutY(94);
         nama.setPrefSize(209, 40);
 
-        Label totalHarga = new Label("TOTAL = ");
+        totalHarga = new Label("TOTAL = Rp. 0.0");
+        totalHarga.setId("totalharga");
         totalHarga.setLayoutY(545);
         totalHarga.setAlignment(Pos.CENTER);
+        tablePesanan = new TableView<>();
+        tablePesanan.setLayoutX(31);
+        tablePesanan.setLayoutY(172);
+        tablePesanan.setPrefSize(284, 357);
+
+        TableColumn<Food, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        nameColumn.setPrefWidth(150);
+
+        TableColumn<Food, Double> priceColumn = new TableColumn<>("Price");
+        priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+        priceColumn.setPrefWidth(100);
+
+        tablePesanan.getColumns().addAll(nameColumn, priceColumn);
 
         Pane order = new Pane();
         totalHarga.layoutXProperty().bind(order.widthProperty().subtract(totalHarga.widthProperty()).divide(2));
@@ -163,7 +201,12 @@ public class Menu1 {
         order.setLayoutX(929);
         order.setLayoutY(0);
         order.setPrefSize(346, 700);
-        order.getChildren().addAll(pane1, lanjut, kembali, nama, namaOrder, totalHarga);
+        order.getChildren().addAll(lanjut, kembali, nama, namaOrder, totalHarga, tablePesanan);
         return order;
     }
+
+    private double calculateTotalPrice(ObservableList<Food> orderItems) {
+        return orderItems.stream().mapToDouble(Food::getPrice).sum();
+    }
 }
+

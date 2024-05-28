@@ -1,8 +1,11 @@
 .root {
-    -fx-background-color: linear-gradient(#000000, #c89116);
+    -fx-background-color: linear-gradient(#2A7D88, #3D83D4, #35B4B4 );
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
+
+
+
 
 .scene2 {
     -fx-background-color: linear-gradient(#000000, #c89116);
@@ -32,6 +35,18 @@
     -fx-background-color: #383838;
 }
 
+#tempatpesanan, 
+#tampilkangambar {
+    -fx-background-color: white;
+}
+
+#totalharga {
+    -fx-text-fill: black; /* Warna teks menjadi hitam */
+    -fx-font-weight: bold; /* Teks menjadi tebal */
+    -fx-font-size: 14px; /* Ukuran teks */
+}
+
+
 /* Tombol atas */
 .transparent-button {
     -fx-background-color: #494848; 
@@ -49,6 +64,24 @@
     -fx-border-radius: 15; /* Membuat sudut border melengkung, sesuaikan dengan kebutuhan Anda */
 }
 
+.transparent-button-kali {
+    -fx-background-color: #000000; 
+    -fx-border-color: transparent; 
+    -fx-text-fill: white; 
+    -fx-font-size: 14px; 
+    -fx-border-width: 1px; 
+    -fx-border-radius: 15; 
+}
+.transparent-button-kali:hover {
+    -fx-text-fill: rgba(245, 234, 234, 0.864); /* Mengganti 'rgb(14, 14, 14)' dengan 'black' */
+    -fx-background-color: black; /* Membuat latar belakang transparan */
+    -fx-border-width: 1px; /* Lebar border saat hover */
+    -fx-border-radius: 15; /* Membuat sudut border melengkung, sesuaikan dengan kebutuhan Anda */
+}
+
+
+
+
 /* Style.css */
 .label {
     -fx-font-weight: bold;
@@ -63,6 +96,7 @@
 }
 
 
-#layartambah {
+#layartambah,
+#tabelnya {
     -fx-background-color:#000000
 }

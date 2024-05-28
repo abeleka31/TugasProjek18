@@ -1,4 +1,5 @@
 package eazysorder.view;
+
 import eazysorder.App;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +18,7 @@ public class MainScene {
     }
 
     private void mainScreen() {
+        // Load the image
         Image newImage = new Image(getClass().getResource("/pic/patrik.png").toExternalForm());
         ImageView imageView1 = new ImageView(newImage);
         imageView1.setFitWidth(831);
@@ -24,6 +26,7 @@ public class MainScene {
         imageView1.setLayoutX(-58);
         imageView1.setLayoutY(76);
 
+        // Button for user
         Button tombolUser = new Button("PESAN");
         tombolUser.setId("pesan");
         tombolUser.setPrefSize(306, 136);
@@ -33,6 +36,7 @@ public class MainScene {
             opsiPengambilan();
         });
 
+        // Button for admin
         Button tombolAdmin = new Button("Admin");
         tombolAdmin.setId("admin");
         tombolAdmin.setPrefSize(306, 136);
@@ -41,18 +45,19 @@ public class MainScene {
         tombolAdmin.setOnAction(event -> {
             app.tampilkanAdminScene();
         });
-        
+
+        // Pane and VBox layout
         Pane pane = new Pane();
         pane.getChildren().addAll(tombolAdmin, tombolUser, imageView1);
         VBox root = new VBox(pane);
 
+        // Create scene
         scene = new Scene(root, 1280, 700);
         applyStylesheet();
     }
 
-    
-
     void opsiPengambilan() {
+        // Load the image
         Image newImage1 = new Image(getClass().getResource("/pic/memepilfiks.png").toExternalForm());
         ImageView imageView2 = new ImageView(newImage1);
         imageView2.setFitWidth(623);
@@ -60,7 +65,7 @@ public class MainScene {
         imageView2.setLayoutX(328);
         imageView2.setLayoutY(-8);
 
-        
+        // Dine-in button
         Button takein = new Button("DINE IN");
         takein.setId("takein");
         takein.setLayoutX(210);
@@ -72,6 +77,7 @@ public class MainScene {
             App.getPrimaryStage().setScene(menuScene);
         });
 
+        // Takeaway button
         Button takeaway = new Button("TAKE AWAY");
         takeaway.setId("takeaway");
         takeaway.setLayoutX(748);
@@ -82,7 +88,8 @@ public class MainScene {
             Scene menuScene = menu.tampilkanMenu1();
             App.getPrimaryStage().setScene(menuScene);
         });
-        
+
+        // Back button
         Button kembali = new Button("<- Kembali");
         kembali.setId("balik");
         kembali.setLayoutX(40);
@@ -92,6 +99,7 @@ public class MainScene {
             app.tampilkanSceneUtama();
         });
 
+        // Pane and VBox layout for opsiPengambilan
         Pane pane = new Pane();
         pane.getChildren().addAll(imageView2, takeaway, takein, kembali);
         VBox vBox = new VBox(pane);
