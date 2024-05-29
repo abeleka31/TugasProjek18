@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 public class MainScene {
     private App app;
@@ -19,12 +18,12 @@ public class MainScene {
 
     private void mainScreen() {
         // Load the image
-        Image newImage = new Image(getClass().getResource("/pic/patrik.png").toExternalForm());
-        ImageView imageView1 = new ImageView(newImage);
-        imageView1.setFitWidth(831);
-        imageView1.setFitHeight(623);
-        imageView1.setLayoutX(-58);
-        imageView1.setLayoutY(76);
+        // Image newImage = new Image(getClass().getResource("/pic/patrik.png").toExternalForm());
+        // ImageView imageView1 = new ImageView(newImage);
+        // imageView1.setFitWidth(831);
+        // imageView1.setFitHeight(623);
+        // imageView1.setLayoutX(-58);
+        // imageView1.setLayoutY(76);
 
         // Button for user
         Button tombolUser = new Button("PESAN");
@@ -48,11 +47,11 @@ public class MainScene {
 
         // Pane and VBox layout
         Pane pane = new Pane();
-        pane.getChildren().addAll(tombolAdmin, tombolUser, imageView1);
-        VBox root = new VBox(pane);
+        pane.setId("bg");
+        pane.getChildren().addAll(tombolAdmin, tombolUser);
 
         // Create scene
-        scene = new Scene(root, 1280, 700);
+        scene = new Scene(pane, 1280, 700);
         applyStylesheet();
     }
 
@@ -101,9 +100,10 @@ public class MainScene {
 
         // Pane and VBox layout for opsiPengambilan
         Pane pane = new Pane();
+        pane.setId("bg");
         pane.getChildren().addAll(imageView2, takeaway, takein, kembali);
-        VBox vBox = new VBox(pane);
-        scene.setRoot(vBox);
+        
+        scene.setRoot(pane);
     }
 
     private void applyStylesheet() {

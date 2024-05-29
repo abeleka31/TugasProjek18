@@ -20,6 +20,7 @@ public class App extends Application {
         MainScene mainScene = new MainScene(this);
         primaryStage.setScene(mainScene.getScene());
         primaryStage.show();
+
     }
 
     public void tampilkanAdminScene() {

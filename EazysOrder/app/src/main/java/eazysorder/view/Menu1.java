@@ -15,7 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import eazysorder.App;
 
-import java.net.URL;
 import java.util.List;
 
 public class Menu1 {
@@ -91,26 +90,26 @@ public class Menu1 {
         List<Food> foodList = foodController.getAllFood();
         int itemCount = foodList.size();
 
-        double availableWidth = menuArea.getPrefWidth() - 2 * 80;
+        double availableWidth = menuArea.getPrefWidth() - 2 * 50;
         int columns = (int) Math.floor(availableWidth / 150);
         double horizontalGap = (availableWidth - columns * 150 + 20) / (columns + 1);
 
         for (int i = 0; i < foodList.size(); i++) {
             Food food = foodList.get(i);
-            Button menuItemButton = createMenuItemButton(food);
+            Pane menuItemImage = createMenuItemButton(food);
 
-            Label itemNameLabel = new Label(food.getName() + "\nRp. " + food.getPrice());
-            itemNameLabel.setAlignment(Pos.CENTER);
-            itemNameLabel.setPrefWidth(150);
+            Button itemnameButtom = new Button(food.getName() + "\nRp. " + food.getPrice());
+            itemnameButtom.setAlignment(Pos.CENTER);
+            itemnameButtom.setPrefWidth(100);
 
-            VBox menuItemBox = new VBox(menuItemButton, itemNameLabel);
+            VBox menuItemBox = new VBox(menuItemImage, itemnameButtom);
             menuItemBox.setAlignment(Pos.CENTER);
 
             int col = i % columns;
             int row = i / columns;
             menuGrid.add(menuItemBox, col, row);
 
-            menuItemButton.setOnAction(event -> {
+            itemnameButtom.setOnAction(event -> {
                 Food selectedFood = foodList.get(col + row * columns);
                 tablePesanan.getItems().add(selectedFood);
                 totalHarga.setText("TOTAL = Rp. " + calculateTotalPrice(tablePesanan.getItems()));
@@ -128,26 +127,19 @@ public class Menu1 {
         return menuArea;
     }
 
-    private Button createMenuItemButton(Food food) {
-        Button menuItemButton = new Button();
+    private Pane createMenuItemButton(Food food) {
+        Pane menuItemButton = new Pane();
         menuItemButton.setPrefSize(150, 150);
         menuItemButton.getStyleClass().add("menu-item-button");
 
-        String imagePath = food.getImagePath();
-        if (imagePath != null) {
-            URL imageUrl = getClass().getResource(imagePath            );
-            if (imageUrl != null) {
-                menuItemButton.setStyle("-fx-background-image: url('" + imageUrl.toExternalForm() + "'); " +
-                        "-fx-background-size: cover; " +
-                        "-fx-background-position: center;");
-            } else {
-                System.out.println("Image not found: " + imagePath);
-                // Handle default image or notify user
-            }
-        } else {
-            System.out.println("Image path is null for food: " + food.getName());
-            // Handle default image or notify user
-        }
+        // Menampilkan gambar menggunakan ImageView
+        ImageView imageView = new ImageView(new Image("file:" + food.getImagePath()));
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        imageView.setLayoutX(25);
+        imageView.setLayoutY(25);
+
+        menuItemButton.getChildren().add(imageView);
 
         return menuItemButton;
     }
@@ -193,7 +185,29 @@ public class Menu1 {
         priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
         priceColumn.setPrefWidth(100);
 
-        tablePesanan.getColumns().addAll(nameColumn, priceColumn);
+        // Kolom aksi (tombol hapus)
+        TableColumn<Food, Void> actionColumn = new TableColumn<>("Action");
+        actionColumn.setPrefWidth(100);
+        actionColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button deleteButton = new Button("Delete");
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                    deleteButton.setOnAction(event -> {
+                        Food food = getTableView().getItems().get(getIndex());
+                        getTableView().getItems().remove(food);
+                        totalHarga.setText("TOTAL = Rp. " + calculateTotalPrice(tablePesanan.getItems()));
+                    });
+                }
+            }
+        });
+
+        tablePesanan.getColumns().addAll(nameColumn, priceColumn, actionColumn);
 
         Pane order = new Pane();
         totalHarga.layoutXProperty().bind(order.widthProperty().subtract(totalHarga.widthProperty()).divide(2));
@@ -209,4 +223,3 @@ public class Menu1 {
         return orderItems.stream().mapToDouble(Food::getPrice).sum();
     }
 }
-

@@ -131,8 +131,8 @@ public class AdminScreen {
             String name = nameField.getText();
             try {
                 double price = Double.parseDouble(priceField.getText());
-                if (imagePath != null && !imagePath.isEmpty()) {
-                    Food newFood = foodDAO.addFood(name, price, imagePath); // Update to pass imagePath
+                if (imagePath != null && !imagePath.isEmpty()) { // Pastikan imagePath tidak null atau kosong
+                    Food newFood = foodDAO.addFood(name, price, imagePath);
                     if (newFood != null) {
                         foodList.add(newFood);
                         nameField.clear();
@@ -151,6 +151,7 @@ public class AdminScreen {
                 showAlert("Invalid input", "Please enter a valid price.");
             }
         });
+        
 
         // TableView for Foods
         foodTable = new TableView<>();
@@ -192,11 +193,10 @@ public class AdminScreen {
         foodTable.getColumns().addAll(idColumn, nameColumn, priceColumn, imageColumn);
         foodTable.setItems(foodList);
 
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(foodTable);
+
         
         Pane tabelnya = new Pane();
-        tabelnya.getChildren().add(layout);
+        tabelnya.getChildren().add(foodTable);
         tabelnya.setId("tabelnya");
         tabelnya.setLayoutX(365);
         tabelnya.setLayoutY(0);
@@ -223,6 +223,6 @@ public class AdminScreen {
         
         public Scene getScene() {
         return scene;
-        }
-        }
         
+    }
+}
