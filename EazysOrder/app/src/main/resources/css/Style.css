@@ -4,9 +4,6 @@
     -fx-background-size: cover;
 }
 
-
-
-
 .scene2 {
     -fx-background-color: linear-gradient(#000000, #c89116);
     -fx-background-repeat: no-repeat;
@@ -15,23 +12,36 @@
 
 #takeaway,
 #takein,
-#balik,
-#tambah,
 #pesan,
 #admin {
     -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
-    -fx-font-size: 20px;
     -fx-text-fill: white;
-    -fx-font-family: "Times New Roman", Times, serif;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
 }
 
-/* menu1 */
+#tambah,
+#balik
+ {
+    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
 #mainarea,
 #menuarea,
-#order,
 #atas,
 #pane1 {
-    -fx-background-color: #383838;
+    -fx-background-color: #5ce1e6;
 }
 
 #tempatpesanan, 
@@ -78,24 +88,10 @@
     -fx-border-radius: 15; /* Membuat sudut border melengkung, sesuaikan dengan kebutuhan Anda */
 }
 
-
-
-
-/* Style.css */
-.label {
+#order {
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
     -fx-font-weight: bold;
 }
 
-.label-100 {
-    -fx-font-weight: 100;
-}
 
-.label-200 {
-    -fx-font-weight: 200;
-}
-
-
-#layartambah,
-#tabelnya {
-    -fx-background-color:#000000
-}

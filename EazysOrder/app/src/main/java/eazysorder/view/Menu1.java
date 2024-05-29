@@ -146,12 +146,12 @@ public class Menu1 {
 
     private Pane bagianOrderan() {
         Button lanjut = new Button("Lanjut =>");
-        lanjut.setLayoutX(172);
+        lanjut.setLayoutX(186);
         lanjut.setLayoutY(609);
         lanjut.setPrefSize(150, 56);
 
         Button kembali = new Button("<- Kembali");
-        kembali.setLayoutX(8);
+        kembali.setLayoutX(21);
         kembali.setLayoutY(609);
         kembali.setPrefSize(150, 56);
         kembali.setOnAction(event -> {
@@ -159,27 +159,28 @@ public class Menu1 {
         });
 
         Label namaOrder = new Label("Order : ");
-        namaOrder.setLayoutX(14);
-        namaOrder.setLayoutY(103);
-        namaOrder.setPrefSize(72, 29);
+        namaOrder.setId("order");
+        namaOrder.setLayoutX(21);
+        namaOrder.setLayoutY(100);
+        namaOrder.setPrefSize(72, 30);
 
         TextField nama = new TextField();
-        nama.setLayoutX(113);
-        nama.setLayoutY(94);
-        nama.setPrefSize(209, 40);
+        nama.setLayoutX(70);
+        nama.setLayoutY(95);
+        nama.setPrefSize(266, 40);
 
         totalHarga = new Label("TOTAL = Rp. 0.0");
         totalHarga.setId("totalharga");
         totalHarga.setLayoutY(545);
         totalHarga.setAlignment(Pos.CENTER);
         tablePesanan = new TableView<>();
-        tablePesanan.setLayoutX(31);
-        tablePesanan.setLayoutY(172);
-        tablePesanan.setPrefSize(284, 357);
+        tablePesanan.setLayoutX(21);
+        tablePesanan.setLayoutY(160);
+        tablePesanan.setPrefSize(315, 357);
 
         TableColumn<Food, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        nameColumn.setPrefWidth(150);
+        nameColumn.setPrefWidth(130);
 
         TableColumn<Food, Double> priceColumn = new TableColumn<>("Price");
         priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
@@ -187,7 +188,7 @@ public class Menu1 {
 
         // Kolom aksi (tombol hapus)
         TableColumn<Food, Void> actionColumn = new TableColumn<>("Action");
-        actionColumn.setPrefWidth(100);
+        actionColumn.setPrefWidth(70);
         actionColumn.setCellFactory(param -> new TableCell<>() {
             private final Button deleteButton = new Button("Delete");
 

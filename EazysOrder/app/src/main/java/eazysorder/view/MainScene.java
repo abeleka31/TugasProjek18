@@ -26,7 +26,7 @@ public class MainScene {
         // imageView1.setLayoutY(76);
 
         // Button for user
-        Button tombolUser = new Button("PESAN");
+        Button tombolUser = new Button("Pesan");
         tombolUser.setId("pesan");
         tombolUser.setPrefSize(306, 136);
         tombolUser.setLayoutX(767);

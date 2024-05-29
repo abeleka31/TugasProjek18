@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -151,7 +150,6 @@ public class AdminScreen {
                 showAlert("Invalid input", "Please enter a valid price.");
             }
         });
-        
 
         // TableView for Foods
         foodTable = new TableView<>();
@@ -193,36 +191,44 @@ public class AdminScreen {
         foodTable.getColumns().addAll(idColumn, nameColumn, priceColumn, imageColumn);
         foodTable.setItems(foodList);
 
-
-        
         Pane tabelnya = new Pane();
-        tabelnya.getChildren().add(foodTable);
-        tabelnya.setId("tabelnya");
         tabelnya.setLayoutX(365);
         tabelnya.setLayoutY(0);
         tabelnya.setPrefSize(915, 700);
-        
+
+        tabelnya.widthProperty().addListener((obs, oldVal, newVal) -> {
+            foodTable.setPrefWidth(newVal.doubleValue() - 60);
+        });
+
+        tabelnya.heightProperty().addListener((obs, oldVal, newVal) -> {
+            foodTable.setPrefHeight(newVal.doubleValue() - 60);
+        });
+
+        foodTable.setLayoutX(30);
+        foodTable.setLayoutY(30);
+        tabelnya.getChildren().add(foodTable);
+        tabelnya.setId("tabelnya");
+
         Pane pane = new Pane(paneSamping, kembali, tambah, tabelnya);
         return pane;
-        }
-        
-        private void loadFoods() {
+    }
+
+    private void loadFoods() {
         foodList.setAll(foodDAO.getAllFood());
-        }
-        
-        private void loadOrders() {
+    }
+
+    private void loadOrders() {
         orderList.setAll(orderDAO.getAllOrders());
-        }
-        
-        private void showAlert(String title, String content) {
+    }
+
+    private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
-        }
-        
-        public Scene getScene() {
+    }
+
+    public Scene getScene() {
         return scene;
-        
     }
 }
