@@ -24,12 +24,13 @@
     -fx-cursor: hand;
 }
 
+#lanjut,
 #tambah,
 #balik
  {
     -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
     -fx-text-fill: white;
-    -fx-font-size: 16px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-padding: 10px 20px;
     -fx-border-radius: 10;
@@ -41,7 +42,9 @@
 #menuarea,
 #atas,
 #pane1 {
-    -fx-background-color: #5ce1e6;
+    -fx-background-image: url('/pic/donutsBg.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
 }
 
 #tempatpesanan, 

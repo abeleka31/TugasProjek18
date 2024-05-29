@@ -39,6 +39,10 @@ public class Menu1 {
     }
 
     private Pane createMainArea() {
+        Pane mainPane = new Pane();
+        mainPane.setId("mainarea");
+
+        // Top section
         Pane atas = new Pane();
         atas.setId("atas");
         atas.setPrefSize(929, 91);
@@ -63,18 +67,9 @@ public class Menu1 {
         tombolAir.setPrefSize(123, 30);
         tombolAir.getStyleClass().add("transparent-button");
 
-        Pane menuArea = createMenuArea();
-        Pane mainPane = new Pane();
-        mainPane.setId("mainarea");
-        mainPane.getChildren().addAll(menuArea, atas, tombolAir, tombolDonat, tombolSemua);
+        mainPane.getChildren().addAll(tombolAir, tombolDonat, tombolSemua);
 
-        Pane order = bagianOrderan();
-        mainPane.getChildren().add(order);
-
-        return mainPane;
-    }
-
-    private Pane createMenuArea() {
+        // Menu area
         Pane menuArea = new Pane();
         menuArea.setId("menuarea");
         menuArea.setPrefSize(929, 541);
@@ -124,57 +119,42 @@ public class Menu1 {
         scrollPane.setPrefSize(929, 541);
 
         menuArea.getChildren().add(scrollPane);
-        return menuArea;
-    }
+        mainPane.getChildren().add(menuArea);
 
-    private Pane createMenuItemButton(Food food) {
-        Pane menuItemButton = new Pane();
-        menuItemButton.setPrefSize(150, 150);
-        menuItemButton.getStyleClass().add("menu-item-button");
-
-        // Menampilkan gambar menggunakan ImageView
-        ImageView imageView = new ImageView(new Image("file:" + food.getImagePath()));
-        imageView.setFitWidth(100);
-        imageView.setFitHeight(100);
-        imageView.setLayoutX(25);
-        imageView.setLayoutY(25);
-
-        menuItemButton.getChildren().add(imageView);
-
-        return menuItemButton;
-    }
-
-    private Pane bagianOrderan() {
+        // Order area
         Button lanjut = new Button("Lanjut =>");
-        lanjut.setLayoutX(186);
+        lanjut.setId("lanjut");
+        lanjut.setLayoutX(1115);
         lanjut.setLayoutY(609);
         lanjut.setPrefSize(150, 56);
 
         Button kembali = new Button("<- Kembali");
-        kembali.setLayoutX(21);
+        kembali.setId("lanjut");
+        kembali.setLayoutX(950);
         kembali.setLayoutY(609);
         kembali.setPrefSize(150, 56);
-        kembali.setOnAction(event -> {
-            App.getPrimaryStage().setScene(previousScene);
-        });
+        kembali.setOnAction(event -> App.getPrimaryStage().setScene(previousScene));
 
         Label namaOrder = new Label("Order : ");
         namaOrder.setId("order");
-        namaOrder.setLayoutX(21);
+        namaOrder.setLayoutX(950);
         namaOrder.setLayoutY(100);
         namaOrder.setPrefSize(72, 30);
 
         TextField nama = new TextField();
-        nama.setLayoutX(70);
+        nama.setLayoutX(999);
         nama.setLayoutY(95);
         nama.setPrefSize(266, 40);
 
         totalHarga = new Label("TOTAL = Rp. 0.0");
         totalHarga.setId("totalharga");
+        totalHarga.setLayoutX(950);
         totalHarga.setLayoutY(545);
+        totalHarga.setPrefSize(315, 30);
         totalHarga.setAlignment(Pos.CENTER);
+
         tablePesanan = new TableView<>();
-        tablePesanan.setLayoutX(21);
+        tablePesanan.setLayoutX(950);
         tablePesanan.setLayoutY(160);
         tablePesanan.setPrefSize(315, 357);
 
@@ -186,7 +166,6 @@ public class Menu1 {
         priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
         priceColumn.setPrefWidth(100);
 
-        // Kolom aksi (tombol hapus)
         TableColumn<Food, Void> actionColumn = new TableColumn<>("Action");
         actionColumn.setPrefWidth(70);
         actionColumn.setCellFactory(param -> new TableCell<>() {
@@ -210,14 +189,25 @@ public class Menu1 {
 
         tablePesanan.getColumns().addAll(nameColumn, priceColumn, actionColumn);
 
-        Pane order = new Pane();
-        totalHarga.layoutXProperty().bind(order.widthProperty().subtract(totalHarga.widthProperty()).divide(2));
-        order.setId("order");
-        order.setLayoutX(929);
-        order.setLayoutY(0);
-        order.setPrefSize(346, 700);
-        order.getChildren().addAll(lanjut, kembali, nama, namaOrder, totalHarga, tablePesanan);
-        return order;
+        mainPane.getChildren().addAll(lanjut, kembali, nama, namaOrder, totalHarga, tablePesanan);
+
+        return mainPane;
+    }
+
+    private Pane createMenuItemButton(Food food) {
+        Pane menuItemButton = new Pane();
+        menuItemButton.setPrefSize(150, 150);
+        menuItemButton.getStyleClass().add("menu-item-button");
+
+        ImageView imageView = new ImageView(new Image("file:" + food.getImagePath()));
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        imageView.setLayoutX(25);
+        imageView.setLayoutY(25);
+
+        menuItemButton.getChildren().add(imageView);
+
+        return menuItemButton;
     }
 
     private double calculateTotalPrice(ObservableList<Food> orderItems) {
