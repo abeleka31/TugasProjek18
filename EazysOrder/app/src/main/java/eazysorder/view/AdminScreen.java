@@ -5,17 +5,22 @@ import eazysorder.controller.FoodController;
 import eazysorder.controller.OrderController;
 import eazysorder.model.Food;
 import eazysorder.model.Order;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.List;
 
 public class AdminScreen {
     private App app;
@@ -33,6 +38,7 @@ public class AdminScreen {
         createAdminScene();
         loadFoods();
         loadOrders();
+        orderTable = new TableView<>();
     }
 
     private void createAdminScene() {
@@ -130,7 +136,7 @@ public class AdminScreen {
             String name = nameField.getText();
             try {
                 double price = Double.parseDouble(priceField.getText());
-                if (imagePath != null && !imagePath.isEmpty()) { // Pastikan imagePath tidak null atau kosong
+                if (imagePath != null && !imagePath.isEmpty()) { // Ensure imagePath is not null or empty
                     Food newFood = foodDAO.addFood(name, price, imagePath);
                     if (newFood != null) {
                         foodList.add(newFood);
@@ -164,32 +170,64 @@ public class AdminScreen {
 
         TableColumn<Food, Image> imageColumn = new TableColumn<>("Image");
         imageColumn.setCellValueFactory(cellData -> {
-            // Menampilkan gambar menggunakan ImageView
             Image image = new Image("file:" + cellData.getValue().getImagePath());
             return new SimpleObjectProperty<>(image);
         });
 
-        imageColumn.setCellFactory(col -> {
-            TableCell<Food, Image> cell = new TableCell<Food, Image>() {
-                @Override
-                public void updateItem(Image item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty || item == null) {
-                        setText(null);
-                        setGraphic(null);
-                    } else {
-                        ImageView imageView = new ImageView(item);
-                        imageView.setFitWidth(50);
-                        imageView.setFitHeight(50);
-                        setGraphic(imageView);
-                    }
+        imageColumn.setCellFactory(col -> new TableCell<Food, Image>() {
+            @Override
+            public void updateItem(Image item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    ImageView imageView = new ImageView(item);
+                                        imageView.setFitWidth(50);
+                    imageView.setFitHeight(50);
+                    setGraphic(imageView);
                 }
-            };
-            return cell;
+            }
         });
 
         foodTable.getColumns().addAll(idColumn, nameColumn, priceColumn, imageColumn);
         foodTable.setItems(foodList);
+
+        // TableView for Orders
+        orderTable = new TableView<>();
+        TableColumn<Order, Integer> orderIdColumn = new TableColumn<>("Order ID");
+        orderIdColumn.setCellValueFactory(new PropertyValueFactory<>("id")); // Use PropertyValueFactory with field name
+
+        TableColumn<Order, String> customerNameColumn = new TableColumn<>("Customer Name");
+        customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName")); // Use PropertyValueFactory with field name
+
+        TableColumn<Order, Double> totalPriceColumn = new TableColumn<>("Total Price");
+        totalPriceColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice")); // Use PropertyValueFactory with field name
+
+        TableColumn<Order, Void> detailColumn = new TableColumn<>("Detail");
+        detailColumn.setCellFactory(col -> new TableCell<>() {
+            final Button detailButton = new Button("Detail");
+
+            {
+                detailButton.setOnAction(event -> {
+                    Order order = getTableView().getItems().get(getIndex());
+                    showOrderDetailPopup(order);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(detailButton);
+                }
+            }
+        });
+
+        orderTable.getColumns().addAll(orderIdColumn, customerNameColumn, totalPriceColumn, detailColumn);
+        orderTable.setItems(orderList);
 
         Pane tabelnya = new Pane();
         tabelnya.setLayoutX(365);
@@ -198,15 +236,19 @@ public class AdminScreen {
 
         tabelnya.widthProperty().addListener((obs, oldVal, newVal) -> {
             foodTable.setPrefWidth(newVal.doubleValue() - 60);
+            orderTable.setPrefWidth(newVal.doubleValue() - 60);
         });
 
         tabelnya.heightProperty().addListener((obs, oldVal, newVal) -> {
-            foodTable.setPrefHeight(newVal.doubleValue() - 60);
+            foodTable.setPrefHeight(newVal.doubleValue() - 360);
+            orderTable.setPrefHeight(newVal.doubleValue() - 360);
         });
 
         foodTable.setLayoutX(30);
         foodTable.setLayoutY(30);
-        tabelnya.getChildren().add(foodTable);
+        orderTable.setLayoutX(30);
+        orderTable.setLayoutY(400);
+        tabelnya.getChildren().addAll(foodTable, orderTable);
         tabelnya.setId("tabelnya");
 
         Pane pane = new Pane(paneSamping, kembali, tambah, tabelnya);
@@ -228,7 +270,23 @@ public class AdminScreen {
         alert.showAndWait();
     }
 
+    private void showOrderDetailPopup(Order order) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Order Detail");
+        alert.setHeaderText(null);
+        alert.setContentText("Customer Name: " + order.getCustomerName() + "\n"
+                            + "Total Price: Rp. " + order.getTotalPrice() + "\n"
+                            + "Order Detail:\n" + order.getOrderDetailsAsString());
+
+        alert.showAndWait();
+    }
+
+
+    
+    
+
     public Scene getScene() {
         return scene;
     }
 }
+

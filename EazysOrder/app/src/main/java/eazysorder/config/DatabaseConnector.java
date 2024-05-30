@@ -68,10 +68,9 @@ public class DatabaseConnector {
     private void createOrdersTable() {
         String createOrdersTableSQL = "CREATE TABLE IF NOT EXISTS orders (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "food_id INTEGER NOT NULL," +
                 "customer_name TEXT NOT NULL," +
-                "quantity INTEGER NOT NULL," +
-                "FOREIGN KEY (food_id) REFERENCES foods(id)" +
+                "total_price REAL NOT NULL," +
+                "order_details TEXT NOT NULL" +
                 ")";
 
         try {

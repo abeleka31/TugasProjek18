@@ -1,7 +1,8 @@
 package eazysorder.view;
 
-import eazysorder.model.Food;
 import eazysorder.controller.FoodController;
+import eazysorder.controller.OrderController;
+import eazysorder.model.Food;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -11,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import eazysorder.App;
@@ -106,7 +108,18 @@ public class Menu1 {
 
             itemnameButtom.setOnAction(event -> {
                 Food selectedFood = foodList.get(col + row * columns);
-                tablePesanan.getItems().add(selectedFood);
+                boolean alreadyInTable = false;
+                for (Food item : tablePesanan.getItems()) {
+                    if (item.getId() == selectedFood.getId()) {
+                        item.setQuantity(item.getQuantity() + 1);
+                        alreadyInTable = true;
+                        break;
+                    }
+                }
+                if (!alreadyInTable) {
+                    selectedFood.setQuantity(selectedFood.getQuantity() + 1);
+                    tablePesanan.getItems().add(selectedFood);
+                }
                 totalHarga.setText("TOTAL = Rp. " + calculateTotalPrice(tablePesanan.getItems()));
             });
         }
@@ -154,6 +167,9 @@ public class Menu1 {
         totalHarga.setAlignment(Pos.CENTER);
 
         tablePesanan = new TableView<>();
+        tablePesanan.setMinWidth(315);
+        tablePesanan.setMaxWidth(315);
+        tablePesanan.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tablePesanan.setLayoutX(950);
         tablePesanan.setLayoutY(160);
         tablePesanan.setPrefSize(315, 357);
@@ -162,14 +178,39 @@ public class Menu1 {
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         nameColumn.setPrefWidth(130);
 
+        TableColumn<Food, Integer> quantityColumn = new TableColumn<>("Quantity");
+        quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
+        quantityColumn.setPrefWidth(70);
+
         TableColumn<Food, Double> priceColumn = new TableColumn<>("Price");
-        priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+        priceColumn.setCellValueFactory(cellData -> {
+            Food food = cellData.getValue();
+            double totalPrice = food.getPrice() * food.getQuantity();
+            return new SimpleDoubleProperty(totalPrice).asObject();
+        });
         priceColumn.setPrefWidth(100);
 
         TableColumn<Food, Void> actionColumn = new TableColumn<>("Action");
-        actionColumn.setPrefWidth(70);
+        actionColumn.setPrefWidth(100);
         actionColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button deleteButton = new Button("Delete");
+            private final Button addButton = new Button("+");
+            private final Button subtractButton = new Button("-");
+
+            {
+                addButton.setOnAction(event -> {
+                    Food food = getTableView().getItems().get(getIndex());
+                    food.setQuantity(food.getQuantity() + 1);
+                    totalHarga.setText("TOTAL = Rp. " + calculateTotalPrice(tablePesanan.getItems()));
+                });
+
+                subtractButton.setOnAction(event -> {
+                    Food food = getTableView().getItems().get(getIndex());
+                    if (food.getQuantity() > 0) {
+                        food.setQuantity(food.getQuantity() - 1);
+                        totalHarga.setText("TOTAL = Rp. " + calculateTotalPrice(tablePesanan.getItems()));
+                    }
+                });
+            }
 
             @Override
             protected void updateItem(Void item, boolean empty) {
@@ -177,17 +218,21 @@ public class Menu1 {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    setGraphic(deleteButton);
-                    deleteButton.setOnAction(event -> {
-                        Food food = getTableView().getItems().get(getIndex());
-                        getTableView().getItems().remove(food);
-                        totalHarga.setText("TOTAL = Rp. " + calculateTotalPrice(tablePesanan.getItems()));
-                    });
+                    HBox buttons = new HBox(5);
+                    buttons.getChildren().addAll(addButton, subtractButton);
+                    setGraphic(buttons);
                 }
             }
         });
 
-        tablePesanan.getColumns().addAll(nameColumn, priceColumn, actionColumn);
+        tablePesanan.getColumns().addAll(nameColumn, quantityColumn, priceColumn, actionColumn);
+
+        lanjut.setOnAction(event -> {
+            String namaPemesan = nama.getText(); // Mengambil nama dari TextField
+            DetailPesanan detailPesanan = new DetailPesanan(App.getPrimaryStage(), previousScene, namaPemesan, tablePesanan, new OrderController()); // Mengirimkan nama dan daftar pesanan ke DetailPesanan
+            Scene detailPesananScene = detailPesanan.tampilkanDetailPesanan(); // Mendapatkan scene dari DetailPesanan
+            App.getPrimaryStage().setScene(detailPesananScene); // Menampilkan scene DetailPesanan
+        });
 
         mainPane.getChildren().addAll(lanjut, kembali, nama, namaOrder, totalHarga, tablePesanan);
 
@@ -211,6 +256,7 @@ public class Menu1 {
     }
 
     private double calculateTotalPrice(ObservableList<Food> orderItems) {
-        return orderItems.stream().mapToDouble(Food::getPrice).sum();
+        return orderItems.stream().mapToDouble(food -> food.getPrice() * food.getQuantity()).sum();
     }
 }
+

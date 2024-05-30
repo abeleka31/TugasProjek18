@@ -1,7 +1,7 @@
 package eazysorder.controller;
 
-import eazysorder.model.Order;
 import eazysorder.config.DatabaseConnector;
+import eazysorder.model.Order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,42 +11,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderController {
-
-    public void addOrder(Order order) {
-        String sql = "INSERT INTO orders(food_id, customer_name, quantity) VALUES(?,?,?)";
-
-        try (Connection conn = DatabaseConnector.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, order.getFoodId());
-            pstmt.setString(2, order.getCustomerName());
-            pstmt.setInt(3, order.getQuantity());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    public void createOrder(String customerName, double totalPrice, List<String> orderDetails) {
+        Order order = new Order(customerName, totalPrice, orderDetails);
+        order.saveOrder();
     }
 
     public List<Order> getAllOrders() {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT orders.id, orders.customer_name, orders.quantity, foods.name as food_name " +
-                     "FROM orders JOIN foods ON orders.food_id = foods.id";
-
-        try (Connection conn = DatabaseConnector.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                Order order = new Order();
-                order.setId(rs.getInt("id"));
-                order.setCustomerName(rs.getString("customer_name"));
-                order.setQuantity(rs.getInt("quantity"));
-                order.setFoodName(rs.getString("food_name"));
+        try {
+            Connection connection = DatabaseConnector.getInstance().getConnection();
+            String selectAllOrdersSQL = "SELECT * FROM orders";
+            PreparedStatement preparedStatement = connection.prepareStatement(selectAllOrdersSQL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Order order = Order.fromResultSet(resultSet);
                 orders.add(order);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Failed to fetch orders from database.");
+            e.printStackTrace();
         }
-
         return orders;
     }
 }
