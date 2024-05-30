@@ -17,14 +17,7 @@ public class MainScene {
     }
 
     private void mainScreen() {
-        // Load the image
-        // Image newImage = new Image(getClass().getResource("/pic/patrik.png").toExternalForm());
-        // ImageView imageView1 = new ImageView(newImage);
-        // imageView1.setFitWidth(831);
-        // imageView1.setFitHeight(623);
-        // imageView1.setLayoutX(-58);
-        // imageView1.setLayoutY(76);
-
+        
         // Button for user
         Button tombolUser = new Button("Pesan");
         tombolUser.setId("pesan");
@@ -108,7 +101,8 @@ public class MainScene {
 
     private void applyStylesheet() {
         String css = this.getClass().getResource("/css/Style.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        String scc = this.getClass().getResource("/css/AdminStyle.css").toExternalForm();
+        scene.getStylesheets().addAll(css, scc);
     }
 
     public Scene getScene() {

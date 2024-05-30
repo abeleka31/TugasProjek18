@@ -1,0 +1,24 @@
+#menuarea, 
+#paneinformasi{
+    -fx-background-color: #879cd2;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+#itemmenu {
+    -fx-background-color: #494848; 
+    -fx-border-color: transparent; 
+    -fx-text-fill: white; 
+    -fx-font-size: 14px; 
+    -fx-border-width: 1px; 
+    -fx-border-radius: 15; 
+}
+
+#itemmenu:hover {
+    -fx-text-fill: black; /* Mengganti 'rgb(14, 14, 14)' dengan 'black' */
+    -fx-background-color: #4e4d4d; /* Membuat latar belakang transparan */
+    -fx-border-width: 1px; /* Lebar border saat hover */
+    -fx-border-radius: 15; /* Membuat sudut border melengkung, sesuaikan dengan kebutuhan Anda */
+}
+
+

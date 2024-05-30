@@ -80,6 +80,33 @@ public class FoodController {
         return foods;
     }
 
+    public boolean updateFood(Food food) {
+        String sql = "UPDATE foods SET name = ?, price = ?, image_path = ? WHERE id = ?";
+        try (PreparedStatement statement = databaseController.getConnection().prepareStatement(sql)) {
+            statement.setString(1, food.getName());
+            statement.setDouble(2, food.getPrice());
+            statement.setString(3, food.getImagePath());
+            statement.setInt(4, food.getId());
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            handleSQLException(e);
+        }
+        return false;
+    }
+
+    public boolean deleteFood(Food food) {
+        String sql = "DELETE FROM foods WHERE id = ?";
+        try (PreparedStatement statement = databaseController.getConnection().prepareStatement(sql)) {
+            statement.setInt(1, food.getId());
+            int rowsDeleted = statement.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            handleSQLException(e);
+        }
+        return false;
+    }
+
     private void handleSQLException(SQLException e) {
         // Handle SQLException based on your application's requirements
         e.printStackTrace();

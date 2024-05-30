@@ -36,41 +36,14 @@ public class Menu1 {
 
         Scene scene = new Scene(mainPane, 1280, 700);
         String css = this.getClass().getResource("/css/Style.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        String scc = this.getClass().getResource("/css/MenuStyle.css").toExternalForm();
+        scene.getStylesheets().addAll(css, scc);
         return scene;
     }
 
     private Pane createMainArea() {
         Pane mainPane = new Pane();
         mainPane.setId("mainarea");
-
-        // Top section
-        Pane atas = new Pane();
-        atas.setId("atas");
-        atas.setPrefSize(929, 91);
-        atas.setLayoutX(0);
-        atas.setLayoutY(0);
-
-        Button tombolSemua = new Button("Semua");
-        tombolSemua.setLayoutX(23);
-        tombolSemua.setLayoutY(106);
-        tombolSemua.setPrefSize(110, 30);
-        tombolSemua.getStyleClass().add("transparent-button");
-
-        Button tombolDonat = new Button("Donat");
-        tombolDonat.setLayoutX(154);
-        tombolDonat.setLayoutY(106);
-        tombolDonat.setPrefSize(110, 30);
-        tombolDonat.getStyleClass().add("transparent-button");
-
-        Button tombolAir = new Button("Minuman");
-        tombolAir.setLayoutX(287);
-        tombolAir.setLayoutY(106);
-        tombolAir.setPrefSize(123, 30);
-        tombolAir.getStyleClass().add("transparent-button");
-
-        mainPane.getChildren().addAll(tombolAir, tombolDonat, tombolSemua);
-
         // Menu area
         Pane menuArea = new Pane();
         menuArea.setId("menuarea");
@@ -83,13 +56,11 @@ public class Menu1 {
         menuGrid.setPadding(new Insets(80));
         menuGrid.setVgap(100);
         menuGrid.setAlignment(Pos.CENTER);
-
         List<Food> foodList = foodController.getAllFood();
-        int itemCount = foodList.size();
 
         double availableWidth = menuArea.getPrefWidth() - 2 * 50;
         int columns = (int) Math.floor(availableWidth / 150);
-        double horizontalGap = (availableWidth - columns * 150 + 20) / (columns + 1);
+        double horizontalGap = (availableWidth - columns * 150 ) / (columns + 1);
 
         for (int i = 0; i < foodList.size(); i++) {
             Food food = foodList.get(i);
@@ -98,6 +69,7 @@ public class Menu1 {
             Button itemnameButtom = new Button(food.getName() + "\nRp. " + food.getPrice());
             itemnameButtom.setAlignment(Pos.CENTER);
             itemnameButtom.setPrefWidth(100);
+            itemnameButtom.setId("itemmenu");
 
             VBox menuItemBox = new VBox(menuItemImage, itemnameButtom);
             menuItemBox.setAlignment(Pos.CENTER);

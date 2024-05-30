@@ -1,0 +1,20 @@
+#paneadminutama, 
+#bg{
+    -fx-background-color: #17B6E8;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    
+}
+
+#infopesanan {
+    -fx-background-color: #ffffff
+}
+
+#layartambah{
+    -fx-background-color: #386997;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+#siku{
+    -fx-background-radius: 10; 
+}

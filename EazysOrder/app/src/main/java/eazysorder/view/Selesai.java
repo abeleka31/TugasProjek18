@@ -1,4 +1,5 @@
 package eazysorder.view;
+
 import eazysorder.controller.OrderController;
 import eazysorder.model.Food;
 
@@ -18,14 +19,14 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailPesanan {
+public class Selesai {
     private Stage primaryStage;
     private Scene previousScene;
     private String namaPemesan;
     private TableView<Food> tablePesanan;
     private OrderController orderController;
 
-    public DetailPesanan(Stage primaryStage, Scene previousScene, String namaPemesan, TableView<Food> tablePesanan, OrderController orderController) {
+    public Selesai(Stage primaryStage, Scene previousScene, String namaPemesan, TableView<Food> tablePesanan, OrderController orderController) {
         this.primaryStage = primaryStage;
         this.previousScene = previousScene;
         this.namaPemesan = namaPemesan;
@@ -42,6 +43,7 @@ public class DetailPesanan {
 
         VBox vBoxPesanan = new VBox(10);
         vBoxPesanan.setAlignment(Pos.CENTER_LEFT);
+        vBoxPesanan.setPadding(new Insets(20, 0, 0, 0));
         vBoxPesanan.getChildren().add(labelNama);
 
         List<String> details = new ArrayList<>();
@@ -60,43 +62,42 @@ public class DetailPesanan {
         labelTotal.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         vBoxPesanan.getChildren().add(labelTotal);
 
-        Pane paneInformasi = new Pane(vBoxPesanan);
-        paneInformasi.setId("paneinformasi");
-        paneInformasi.setLayoutX(440);
-        paneInformasi.setLayoutY(93);
-        paneInformasi.setPrefSize(400, 448);
-
         HBox hBoxButtons = new HBox(10);
         hBoxButtons.setAlignment(Pos.CENTER_RIGHT);
         hBoxButtons.setPadding(new Insets(20, 0, 0, 0));
 
         Button kembaliButton = new Button("Kembali");
         kembaliButton.setOnAction(event -> {
-        });
-        kembaliButton.setStyle("-fx-font-size: 16px;");
-        
-        Button edit = new Button("Edit");
-        edit.setOnAction(event -> {
-            primaryStage.setScene(previousScene); // Kembali ke menu sebelumnya
-        });
-        
-        Button pesan = new Button("PESAN");
-        pesan.setOnAction(event -> {
             insertOrderToDatabase(details, totalHarga);
             primaryStage.setScene(previousScene);
-
         });
+        kembaliButton.setStyle("-fx-font-size: 16px;");
 
-        hBoxButtons.getChildren().addAll(kembaliButton, edit, pesan);
+        hBoxButtons.getChildren().addAll(kembaliButton);
 
-        root.setCenter(paneInformasi);
+        root.setCenter(vBoxPesanan);
         root.setBottom(hBoxButtons);
 
+        Pane tampilanVerifikasi = new Pane();
+        tampilanVerifikasi.setLayoutX(totalHarga);
+
+
+
+
         Scene scene = new Scene(root, 1280, 700);
-        String scc = this.getClass().getResource("/css/MenuStyle.css").toExternalForm();
-        scene.getStylesheets().addAll( scc);
         return scene;
     }
+
+
+
+    
+
+
+
+
+
+
+
 
     private void insertOrderToDatabase(List<String> details, double totalHarga) {
         orderController.createOrder(namaPemesan, totalHarga, details);
