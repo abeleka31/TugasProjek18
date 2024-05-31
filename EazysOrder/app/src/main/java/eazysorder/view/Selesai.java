@@ -1,109 +1,62 @@
 package eazysorder.view;
 
-import eazysorder.controller.OrderController;
-import eazysorder.model.Food;
-
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Selesai {
     private Stage primaryStage;
-    private Scene previousScene;
     private String namaPemesan;
-    private TableView<Food> tablePesanan;
-    private OrderController orderController;
+    private double totalHarga;
+    private List<String> orderDetails;
+    private String selectedOrderOption;
 
-    public Selesai(Stage primaryStage, Scene previousScene, String namaPemesan, TableView<Food> tablePesanan, OrderController orderController) {
+    public Selesai(Stage primaryStage, String namaPemesan, double totalHarga, List<String> orderDetails, String selectedOrderOption) {
         this.primaryStage = primaryStage;
-        this.previousScene = previousScene;
         this.namaPemesan = namaPemesan;
-        this.tablePesanan = tablePesanan;
-        this.orderController = orderController;
+        this.totalHarga = totalHarga;
+        this.orderDetails = orderDetails;
+        this.selectedOrderOption = selectedOrderOption;
     }
 
-    public Scene tampilkanDetailPesanan() {
-        BorderPane root = new BorderPane();
-        root.setPadding(new Insets(20));
-
+    public Scene tampilkanSelesai() {
         Label labelNama = new Label("Nama Pemesan: " + namaPemesan);
         labelNama.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
-        VBox vBoxPesanan = new VBox(10);
-        vBoxPesanan.setAlignment(Pos.CENTER_LEFT);
-        vBoxPesanan.setPadding(new Insets(20, 0, 0, 0));
-        vBoxPesanan.getChildren().add(labelNama);
-
-        List<String> details = new ArrayList<>();
-        // Menambahkan detail pesanan
-        ObservableList<Food> orderItems = tablePesanan.getItems();
-        for (Food food : orderItems) {
-            String detail = food.getName() + " : " + food.getQuantity() + "x, Rp. " + food.getPrice() + "\n";
-            details.add(detail);
-            Label labelDetailPesanan = new Label(detail);
-            vBoxPesanan.getChildren().add(labelDetailPesanan);
-        }
-
-        // Menambahkan total harga
-        double totalHarga = calculateTotalPrice(orderItems);
         Label labelTotal = new Label("TOTAL: Rp. " + totalHarga);
         labelTotal.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-        vBoxPesanan.getChildren().add(labelTotal);
 
-        HBox hBoxButtons = new HBox(10);
-        hBoxButtons.setAlignment(Pos.CENTER_RIGHT);
-        hBoxButtons.setPadding(new Insets(20, 0, 0, 0));
+        VBox vBoxDetails = new VBox(10);
+        vBoxDetails.setAlignment(Pos.CENTER_LEFT);
+        vBoxDetails.getChildren().add(labelNama);
 
-        Button kembaliButton = new Button("Kembali");
-        kembaliButton.setOnAction(event -> {
-            insertOrderToDatabase(details, totalHarga);
-            primaryStage.setScene(previousScene);
+        for (String detail : orderDetails) {
+            Label labelDetail = new Label(detail);
+            vBoxDetails.getChildren().add(labelDetail);
+        }
+
+        Label labelOrderOption = new Label("Opsi Order: " + selectedOrderOption);
+        labelOrderOption.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        vBoxDetails.getChildren().add(labelOrderOption);
+
+        vBoxDetails.getChildren().add(labelTotal);
+
+        Button selesaiButton = new Button("Selesai");
+        selesaiButton.setOnAction(event -> {
+            // Logic to handle the finish action, such as returning to the main scene
+            primaryStage.close(); // Example action, close the stage or go back to the main menu
         });
-        kembaliButton.setStyle("-fx-font-size: 16px;");
 
-        hBoxButtons.getChildren().addAll(kembaliButton);
+        VBox vBoxMain = new VBox(20, vBoxDetails, selesaiButton);
+        vBoxMain.setAlignment(Pos.CENTER);
+        vBoxMain.setPrefSize(400, 600);
 
-        root.setCenter(vBoxPesanan);
-        root.setBottom(hBoxButtons);
-
-        Pane tampilanVerifikasi = new Pane();
-        tampilanVerifikasi.setLayoutX(totalHarga);
-
-
-
-
-        Scene scene = new Scene(root, 1280, 700);
+        Scene scene = new Scene(vBoxMain);
         return scene;
-    }
-
-
-
-    
-
-
-
-
-
-
-
-
-    private void insertOrderToDatabase(List<String> details, double totalHarga) {
-        orderController.createOrder(namaPemesan, totalHarga, details);
-    }
-
-    private double calculateTotalPrice(ObservableList<Food> orderItems) {
-        return orderItems.stream().mapToDouble(food -> food.getPrice() * food.getQuantity()).sum();
     }
 }

@@ -65,7 +65,7 @@ public class MainScene {
         takein.setPrefSize(306, 136);
         takein.setOnAction(event -> {
             Menu1 menu = new Menu1(this, scene);
-            Scene menuScene = menu.tampilkanMenu1();
+            Scene menuScene = menu.tampilkanMenu1(null);
             App.getPrimaryStage().setScene(menuScene);
         });
 
@@ -77,7 +77,7 @@ public class MainScene {
         takeaway.setPrefSize(306, 136);
         takeaway.setOnAction(event -> {
             Menu1 menu = new Menu1(this, scene);
-            Scene menuScene = menu.tampilkanMenu1();
+            Scene menuScene = menu.tampilkanMenu1(null);
             App.getPrimaryStage().setScene(menuScene);
         });
 

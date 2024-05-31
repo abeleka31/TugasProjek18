@@ -11,10 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import eazysorder.App;
 
 import java.util.List;
@@ -31,8 +28,8 @@ public class Menu1 {
         this.previousScene = previousScene;
     }
 
-    public Scene tampilkanMenu1() {
-        Pane mainPane = createMainArea();
+    public Scene tampilkanMenu1(ObservableList<Food> preselectedItems) {
+        Pane mainPane = createMainArea(preselectedItems);
 
         Scene scene = new Scene(mainPane, 1280, 700);
         String css = this.getClass().getResource("/css/Style.css").toExternalForm();
@@ -41,9 +38,10 @@ public class Menu1 {
         return scene;
     }
 
-    private Pane createMainArea() {
+    private Pane createMainArea(ObservableList<Food> preselectedItems) {
         Pane mainPane = new Pane();
         mainPane.setId("mainarea");
+
         // Menu area
         Pane menuArea = new Pane();
         menuArea.setId("menuarea");
@@ -60,25 +58,25 @@ public class Menu1 {
 
         double availableWidth = menuArea.getPrefWidth() - 2 * 50;
         int columns = (int) Math.floor(availableWidth / 150);
-        double horizontalGap = (availableWidth - columns * 150 ) / (columns + 1);
+        double horizontalGap = (availableWidth - columns * 150) / (columns + 1);
 
         for (int i = 0; i < foodList.size(); i++) {
             Food food = foodList.get(i);
             Pane menuItemImage = createMenuItemButton(food);
 
-            Button itemnameButtom = new Button(food.getName() + "\nRp. " + food.getPrice());
-            itemnameButtom.setAlignment(Pos.CENTER);
-            itemnameButtom.setPrefWidth(100);
-            itemnameButtom.setId("itemmenu");
+            Button itemnameButton = new Button(food.getName() + "\nRp. " + food.getPrice());
+            itemnameButton.setAlignment(Pos.CENTER);
+            itemnameButton.setPrefWidth(100);
+            itemnameButton.setId("itemmenu");
 
-            VBox menuItemBox = new VBox(menuItemImage, itemnameButtom);
+            VBox menuItemBox = new VBox(menuItemImage, itemnameButton);
             menuItemBox.setAlignment(Pos.CENTER);
 
             int col = i % columns;
             int row = i / columns;
             menuGrid.add(menuItemBox, col, row);
 
-            itemnameButtom.setOnAction(event -> {
+            itemnameButton.setOnAction(event -> {
                 Food selectedFood = foodList.get(col + row * columns);
                 boolean alreadyInTable = false;
                 for (Food item : tablePesanan.getItems()) {
@@ -199,6 +197,11 @@ public class Menu1 {
 
         tablePesanan.getColumns().addAll(nameColumn, quantityColumn, priceColumn, actionColumn);
 
+        if (preselectedItems != null) {
+            tablePesanan.setItems(preselectedItems);
+            totalHarga.setText("TOTAL = Rp. " + calculateTotalPrice(preselectedItems));
+        }
+
         lanjut.setOnAction(event -> {
             String namaPemesan = nama.getText(); // Mengambil nama dari TextField
             DetailPesanan detailPesanan = new DetailPesanan(App.getPrimaryStage(), previousScene, namaPemesan, tablePesanan, new OrderController()); // Mengirimkan nama dan daftar pesanan ke DetailPesanan
@@ -231,4 +234,3 @@ public class Menu1 {
         return orderItems.stream().mapToDouble(food -> food.getPrice() * food.getQuantity()).sum();
     }
 }
-

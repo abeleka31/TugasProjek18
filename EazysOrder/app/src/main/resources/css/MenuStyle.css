@@ -1,9 +1,15 @@
 #menuarea, 
-#paneinformasi{
+#paneinformasi, 
+#root{
     -fx-background-color: #879cd2;
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
+
+#panedetail {
+    -fx-background-color: #17B6E8;
+}
+
 
 #itemmenu {
     -fx-background-color: #494848; 
