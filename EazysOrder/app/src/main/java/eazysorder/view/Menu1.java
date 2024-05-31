@@ -17,6 +17,7 @@ import eazysorder.App;
 import java.util.List;
 
 public class Menu1 {
+    @SuppressWarnings("unused")
     private MainScene mainScene;
     private Scene previousScene;
     private FoodController foodController = new FoodController();
@@ -38,6 +39,7 @@ public class Menu1 {
         return scene;
     }
 
+    @SuppressWarnings({ "deprecation", "unchecked" })
     private Pane createMainArea(ObservableList<Food> preselectedItems) {
         Pane mainPane = new Pane();
         mainPane.setId("mainarea");
@@ -214,9 +216,17 @@ public class Menu1 {
 
         lanjut.setOnAction(event -> {
             String namaPemesan = nama.getText(); // Mengambil nama dari TextField
-            DetailPesanan detailPesanan = new DetailPesanan(App.getPrimaryStage(), previousScene, namaPemesan, tablePesanan, new OrderController()); // Mengirimkan nama dan daftar pesanan ke DetailPesanan
-            Scene detailPesananScene = detailPesanan.tampilkanDetailPesanan(); // Mendapatkan scene dari DetailPesanan
-            App.getPrimaryStage().setScene(detailPesananScene); // Menampilkan scene DetailPesanan
+            
+            // Memeriksa apakah nama pemesan telah dimasukkan dan setidaknya satu item telah dipilih
+            if (namaPemesan.isEmpty() || tablePesanan.getItems().isEmpty()) {
+                // Menampilkan pesan peringatan jika nama pemesan belum dimasukkan atau belum memilih item
+                showAlert("Peringatan", "Harap masukkan nama dan pilih setidaknya satu item dari menu.");
+            } else {
+                // Jika nama pemesan dan setidaknya satu item dipilih, lanjutkan ke DetailPesanan
+                DetailPesanan detailPesanan = new DetailPesanan(App.getPrimaryStage(), previousScene, namaPemesan, tablePesanan, new OrderController()); // Mengirimkan nama dan daftar pesanan ke DetailPesanan
+                Scene detailPesananScene = detailPesanan.tampilkanDetailPesanan(); // Mendapatkan scene dari DetailPesanan
+                App.getPrimaryStage().setScene(detailPesananScene); // Menampilkan scene DetailPesanan
+            }
         });
 
         mainPane.getChildren().addAll(lanjut, kembali, nama, namaOrder, totalHarga, tablePesanan);
@@ -242,5 +252,13 @@ public class Menu1 {
 
     private double calculateTotalPrice(ObservableList<Food> orderItems) {
         return orderItems.stream().mapToDouble(food -> food.getPrice() * food.getQuantity()).sum();
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

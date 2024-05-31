@@ -10,13 +10,14 @@ import java.util.List;
 import eazysorder.config.DatabaseConnector;
 import eazysorder.model.Food;
 
-public class FoodController {
+public class FoodController implements CrudOperations {
     private DatabaseConnector databaseController;
 
     public FoodController() {
         databaseController = new DatabaseConnector();
     }
 
+    @Override
     public Food addFood(String name, double price, String imagePath) {
         String sql = "INSERT INTO foods (name, price, image_path) VALUES (?, ?, ?)";
         try (PreparedStatement statement = databaseController.getConnection().prepareStatement(sql)) {
@@ -33,17 +34,7 @@ public class FoodController {
         return null;
     }
 
-    private int getLastInsertedFoodId() throws SQLException {
-        String sql = "SELECT last_insert_rowid()";
-        try (Statement statement = databaseController.getConnection().createStatement();
-             ResultSet resultSet = statement.executeQuery(sql)) {
-            if (resultSet.next()) {
-                return resultSet.getInt(1);
-            }
-        }
-        throw new SQLException("Failed to get last inserted food ID.");
-    }
-
+    @Override
     public Food getFoodById(int id) {
         String sql = "SELECT * FROM foods WHERE id = ?";
         try (PreparedStatement statement = databaseController.getConnection().prepareStatement(sql)) {
@@ -62,6 +53,7 @@ public class FoodController {
         return null;
     }
 
+    @Override
     public List<Food> getAllFood() {
         List<Food> foods = new ArrayList<>();
         String sql = "SELECT * FROM foods";
@@ -80,6 +72,7 @@ public class FoodController {
         return foods;
     }
 
+    @Override
     public boolean updateFood(Food food) {
         String sql = "UPDATE foods SET name = ?, price = ?, image_path = ? WHERE id = ?";
         try (PreparedStatement statement = databaseController.getConnection().prepareStatement(sql)) {
@@ -95,6 +88,7 @@ public class FoodController {
         return false;
     }
 
+    @Override
     public boolean deleteFood(Food food) {
         String sql = "DELETE FROM foods WHERE id = ?";
         try (PreparedStatement statement = databaseController.getConnection().prepareStatement(sql)) {
@@ -105,6 +99,17 @@ public class FoodController {
             handleSQLException(e);
         }
         return false;
+    }
+
+    private int getLastInsertedFoodId() throws SQLException {
+        String sql = "SELECT last_insert_rowid()";
+        try (Statement statement = databaseController.getConnection().createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        }
+        throw new SQLException("Failed to get last inserted food ID.");
     }
 
     private void handleSQLException(SQLException e) {

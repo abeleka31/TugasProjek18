@@ -24,7 +24,7 @@ public class OrderController {
             PreparedStatement preparedStatement = connection.prepareStatement(selectAllOrdersSQL);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Order order = Order.fromResultSet(resultSet);
+                Order order = (Order) Order.fromResultSet(resultSet);
                 orders.add(order);
             }
         } catch (SQLException e) {

@@ -8,28 +8,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Order {
-    private int id;
-    private String customerName;
-    private double totalPrice;
-    private List<String> orderDetails;
+public class Order extends AbstractOrder {
 
-    // Constructor untuk membuat objek Order baru tanpa ID
+    // Constructor for creating a new Order object without ID
     public Order(String customerName, double totalPrice, List<String> orderDetails) {
-        this.customerName = customerName;
-        this.totalPrice = totalPrice;
-        this.orderDetails = orderDetails;
+        super(customerName, totalPrice, orderDetails);
     }
 
-    // Constructor untuk membuat objek Order dari hasil kueri database
+    // Constructor for creating an Order object from a database query result
     public Order(int id, String customerName, double totalPrice, List<String> orderDetails) {
-        this.id = id;
-        this.customerName = customerName;
-        this.totalPrice = totalPrice;
-        this.orderDetails = orderDetails;
+        super(id, customerName, totalPrice, orderDetails);
     }
 
-    // Method untuk menyimpan order ke database
+    // Override the saveOrder method to provide the specific implementation for saving an order to the database
+    @Override
     public void saveOrder() {
         try {
             Connection connection = DatabaseConnector.getInstance().getConnection();
@@ -40,7 +32,7 @@ public class Order {
             preparedStatement.setString(3, getOrderDetailsAsString());
             preparedStatement.executeUpdate();
 
-            // Mengambil ID yang di-generate oleh database
+            // Retrieve the generated ID from the database
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 id = generatedKeys.getInt(1);
@@ -52,51 +44,5 @@ public class Order {
         }
     }
 
-    // Method untuk mengubah daftar orderDetails menjadi satu string dengan newline sebagai pemisah
-    public String getOrderDetailsAsString() {
-        return String.join("\n", orderDetails);
-    }
-
-    // Getter dan setter untuk semua field
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public List<String> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<String> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    // Method untuk membuat objek Order dari ResultSet yang dihasilkan dari kueri database
-    public static Order fromResultSet(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        String customerName = rs.getString("customer_name");
-        double totalPrice = rs.getDouble("total_price");
-        String orderDetails = rs.getString("order_details");
-        String[] detailsArray = orderDetails.split("\n");
-        return new Order(id, customerName, totalPrice, List.of(detailsArray));
-    }
+    // Optionally, you can override other methods if specific functionality needs to be added or modified
 }
