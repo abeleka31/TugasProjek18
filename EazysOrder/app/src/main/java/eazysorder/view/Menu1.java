@@ -42,6 +42,15 @@ public class Menu1 {
         Pane mainPane = new Pane();
         mainPane.setId("mainarea");
 
+        // Menambahkan GIF ke dalam aplikasi
+        ImageView gifImageView = new ImageView(new Image(getClass().getResource("/pic/donatjoget.gif").toExternalForm()));
+        gifImageView.setLayoutX(0);
+        gifImageView.setLayoutY(-30);
+        gifImageView.setFitWidth(640);
+        gifImageView.setFitHeight(270);
+        
+        mainPane.getChildren().add(gifImageView); // Menambahkan GIF ke mainPane
+
         // Menu area
         Pane menuArea = new Pane();
         menuArea.setId("menuarea");
@@ -125,9 +134,10 @@ public class Menu1 {
         namaOrder.setPrefSize(72, 30);
 
         TextField nama = new TextField();
-        nama.setLayoutX(999);
+        nama.setId("NamaOr");
+        nama.setLayoutX(1020);
         nama.setLayoutY(95);
-        nama.setPrefSize(266, 40);
+        nama.setPrefSize(245, 40);
 
         totalHarga = new Label("TOTAL = Rp. 0.0");
         totalHarga.setId("totalharga");

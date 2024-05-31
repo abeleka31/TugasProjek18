@@ -30,10 +30,11 @@ public class DetailPesanan {
     public Scene tampilkanDetailPesanan() {
 
         Label labelNama = new Label("Nama Pemesan: " + namaPemesan);
+        labelNama.setAlignment(Pos.CENTER);
         labelNama.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
         VBox vBoxPesanan = new VBox(10);
-        vBoxPesanan.setAlignment(Pos.CENTER_LEFT);
+        vBoxPesanan.setAlignment(Pos.CENTER);
         vBoxPesanan.getChildren().add(labelNama);
 
         List<String> details = new ArrayList<>();
@@ -43,12 +44,14 @@ public class DetailPesanan {
             String detail = food.getName() + " : " + food.getQuantity() + "x, Rp. " + food.getPrice() + "\n";
             details.add(detail);
             Label labelDetailPesanan = new Label(detail);
+            labelDetailPesanan.setAlignment(Pos.CENTER);
             vBoxPesanan.getChildren().add(labelDetailPesanan);
         }
 
         // Menambahkan total harga
         double totalHarga = calculateTotalPrice(orderItems);
         Label labelTotal = new Label("TOTAL: Rp. " + totalHarga);
+        labelTotal.setAlignment(Pos.CENTER);
         labelTotal.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         vBoxPesanan.getChildren().add(labelTotal);
 
@@ -69,7 +72,9 @@ public class DetailPesanan {
         rbLangsung.setOnAction(event -> tfJumlahUang.setDisable(true));
 
         VBox vBoxPembayaran = new VBox(10, labelMetodePembayaran, rbDebit, rbLangsung, labelJumlahUang, tfJumlahUang);
-        vBoxPembayaran.setAlignment(Pos.CENTER_LEFT);
+        vBoxPembayaran.setLayoutX(25);
+        vBoxPembayaran.setLayoutY(25);
+        vBoxPembayaran.setAlignment(Pos.CENTER);
 
         // Opsi Dine-in atau Takeaway
         Label labelOpsiOrder = new Label("Pilih Opsi Order:");
@@ -80,6 +85,8 @@ public class DetailPesanan {
         rbTakeaway.setToggleGroup(orderGroup);
 
         VBox vBoxOpsiOrder = new VBox(10, labelOpsiOrder, rbDineIn, rbTakeaway);
+        vBoxOpsiOrder.setLayoutX(25);
+        vBoxOpsiOrder.setLayoutY(25);
         vBoxOpsiOrder.setAlignment(Pos.CENTER_LEFT);
 
         Pane paneInformasi = new Pane(vBoxPesanan);

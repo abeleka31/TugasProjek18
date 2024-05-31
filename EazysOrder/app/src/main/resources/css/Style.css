@@ -1,5 +1,5 @@
 #bg {
-    -fx-background-image: url('/pic/fiksbg.jpg');
+    -fx-background-image: url('/pic/scene1fiksbg.png');
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
@@ -14,19 +14,18 @@
 #takein,
 #pesan,
 #admin {
-    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
+    -fx-background-color: linear-gradient(to bottom right, #f833bd, #5ce1e6);
     -fx-text-fill: white;
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-padding: 10px 20px;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-border-radius: 35;
+    -fx-background-radius: 35;
     -fx-cursor: hand;
 }
 
 #lanjut,
-#tambah,
-#balik
+#tambah
  {
     -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
     -fx-text-fill: white;
@@ -92,9 +91,52 @@
 }
 
 #order {
-    -fx-font-size: 14px;
+    -fx-font-size: 19px;
     -fx-text-fill: black;
     -fx-font-weight: bold;
 }
+
+#maintext1
+{
+    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-size: 55px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 35;
+    -fx-background-radius: 35;
+}
+
+#maintext2
+{
+    -fx-background-color: linear-gradient(to right, #8c52ff, #5ce1e6);
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 35;
+    -fx-background-radius: 35;
+}
+
+#balik
+{
+    -fx-background-image: url('/pic/Home.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-border-radius: 35;
+    -fx-background-radius: 35;
+}
+
+#maintext3
+{
+    -fx-font-family: "Courier New", Courier, monospace;
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
 
 

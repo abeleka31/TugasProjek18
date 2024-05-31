@@ -32,7 +32,7 @@ public class Selesai {
         labelTotal.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
         VBox vBoxDetails = new VBox(10);
-        vBoxDetails.setAlignment(Pos.CENTER_LEFT);
+        vBoxDetails.setAlignment(Pos.CENTER);
         vBoxDetails.getChildren().add(labelNama);
 
         for (String detail : orderDetails) {
@@ -49,12 +49,12 @@ public class Selesai {
         Button selesaiButton = new Button("Selesai");
         selesaiButton.setOnAction(event -> {
             // Logic to handle the finish action, such as returning to the main scene
-            primaryStage.close(); // Example action, close the stage or go back to the main menu
+            primaryStage.close(); 
         });
 
         VBox vBoxMain = new VBox(20, vBoxDetails, selesaiButton);
         vBoxMain.setAlignment(Pos.CENTER);
-        vBoxMain.setPrefSize(400, 600);
+        vBoxMain.setPrefSize(1280, 700);
 
         Scene scene = new Scene(vBoxMain);
         return scene;

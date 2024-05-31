@@ -6,6 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.geometry.Pos;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.control.Label;
+
 
 public class MainScene {
     private App app;
@@ -17,13 +21,28 @@ public class MainScene {
     }
 
     private void mainScreen() {
+        Label Text1 = new Label("Eazys Order For UMKM");
+        Text1.setId("maintext1");
+        Text1.setTextAlignment(TextAlignment.CENTER);
+        Text1.setAlignment(Pos.CENTER);
+        Text1.setLayoutX(230);
+        Text1.setLayoutY(52);
+        Text1.setPrefSize(819, 51);
+
+        Label Text2 = new Label("Aplikasi untuk mu dan untuk kita semua");
+        Text2.setId("maintext2");
+        Text2.setTextAlignment(TextAlignment.CENTER);
+        Text2.setAlignment(Pos.CENTER);
+        Text2.setLayoutX(381);
+        Text2.setLayoutY(186);
+        Text2.setPrefSize(519, 39);
         
         // Button for user
-        Button tombolUser = new Button("Pesan");
+        Button tombolUser = new Button("User");
         tombolUser.setId("pesan");
-        tombolUser.setPrefSize(306, 136);
-        tombolUser.setLayoutX(767);
-        tombolUser.setLayoutY(168);
+        tombolUser.setPrefSize(552, 280);
+        tombolUser.setLayoutX(70);
+        tombolUser.setLayoutY(350);
         tombolUser.setOnAction(event -> {
             opsiPengambilan();
         });
@@ -31,9 +50,9 @@ public class MainScene {
         // Button for admin
         Button tombolAdmin = new Button("Admin");
         tombolAdmin.setId("admin");
-        tombolAdmin.setPrefSize(306, 136);
-        tombolAdmin.setLayoutX(767);
-        tombolAdmin.setLayoutY(409);
+        tombolAdmin.setPrefSize(552, 280);
+        tombolAdmin.setLayoutX(657);
+        tombolAdmin.setLayoutY(350);
         tombolAdmin.setOnAction(event -> {
             app.tampilkanAdminScene();
         });
@@ -41,14 +60,14 @@ public class MainScene {
         // Pane and VBox layout
         Pane pane = new Pane();
         pane.setId("bg");
-        pane.getChildren().addAll(tombolAdmin, tombolUser);
+        pane.getChildren().addAll(Text1, Text2, tombolAdmin, tombolUser);
 
         // Create scene
         scene = new Scene(pane, 1280, 700);
         applyStylesheet();
     }
 
-    void opsiPengambilan() {
+    public void opsiPengambilan() {
         // Load the image
         Image newImage1 = new Image(getClass().getResource("/pic/memepilfiks.png").toExternalForm());
         ImageView imageView2 = new ImageView(newImage1);
@@ -58,43 +77,41 @@ public class MainScene {
         imageView2.setLayoutY(-8);
 
         // Dine-in button
-        Button takein = new Button("DINE IN");
+        Button takein = new Button("PESAN");
         takein.setId("takein");
-        takein.setLayoutX(210);
-        takein.setLayoutY(270);
-        takein.setPrefSize(306, 136);
+        takein.setLayoutX(464);
+        takein.setLayoutY(279);
+        takein.setPrefSize(351, 141);
         takein.setOnAction(event -> {
             Menu1 menu = new Menu1(this, scene);
             Scene menuScene = menu.tampilkanMenu1(null);
             App.getPrimaryStage().setScene(menuScene);
         });
 
-        // Takeaway button
-        Button takeaway = new Button("TAKE AWAY");
-        takeaway.setId("takeaway");
-        takeaway.setLayoutX(748);
-        takeaway.setLayoutY(270);
-        takeaway.setPrefSize(306, 136);
-        takeaway.setOnAction(event -> {
-            Menu1 menu = new Menu1(this, scene);
-            Scene menuScene = menu.tampilkanMenu1(null);
-            App.getPrimaryStage().setScene(menuScene);
-        });
-
         // Back button
-        Button kembali = new Button("<- Kembali");
+        Button kembali = new Button("");
         kembali.setId("balik");
-        kembali.setLayoutX(40);
-        kembali.setLayoutY(614);
-        kembali.setPrefSize(124, 47);
+        kembali.setLayoutX(37);
+        kembali.setLayoutY(597);
+        kembali.setPrefSize(65, 65);
         kembali.setOnAction(event -> {
             app.tampilkanSceneUtama();
         });
 
+        Label Text3 = new Label("'Kamu tidak bisa membeli kebahagiaan, \n" + //
+                        "Tetapi kamu bisa membeli donat\n" + //
+                        "dan itu pada dasarnya adalah hal yang sama'");
+        Text3.setId("maintext3");
+        Text3.setTextAlignment(TextAlignment.CENTER);
+        Text3.setAlignment(Pos.CENTER);
+        Text3.setLayoutX(307);
+        Text3.setLayoutY(457);
+        Text3.setPrefSize(593, 105);
+
         // Pane and VBox layout for opsiPengambilan
         Pane pane = new Pane();
         pane.setId("bg");
-        pane.getChildren().addAll(imageView2, takeaway, takein, kembali);
+        pane.getChildren().addAll(imageView2, Text3, takein, kembali);
         
         scene.setRoot(pane);
     }

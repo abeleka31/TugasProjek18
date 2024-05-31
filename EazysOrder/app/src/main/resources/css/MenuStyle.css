@@ -1,13 +1,16 @@
 #menuarea, 
-#paneinformasi, 
 #root{
-    -fx-background-color: #879cd2;
+    -fx-background-color: white;
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
 }
 
 #panedetail {
-    -fx-background-color: #17B6E8;
+    -fx-background-image: url('/pic/scene1fiksbg.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
 }
 
 
@@ -27,4 +30,21 @@
     -fx-border-radius: 15; /* Membuat sudut border melengkung, sesuaikan dengan kebutuhan Anda */
 }
 
+#NamaOr
+{
+    -fx-effect: dropshadow(gaussian, lightblue, 10, 0.5, 5, 5);
+    -fx-border-radius: 35;
+    -fx-background-radius: 35;
+}
+
+#paneinformasi,
+#pembayaran,
+#opsiorder
+{
+    -fx-background-color: white;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+}
 
