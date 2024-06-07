@@ -65,13 +65,34 @@ Untuk mengatasi masalah ini, kami mengembangkan aplikasi **Eazys Order** yang me
 - **Fitur Utama:** Menampilkan ringkasan pesanan, pengakhiran, dan antarmuka pengguna.
 - **Konsep OOP:** Enkapsulasi dan pewarisan.
 
+## MENTORING
+-	[Muhammad Thoriq Ali Said] - [Jumat, 24-Mei-2024]
+-	[Muhammad Thoriq Ali Said] - [Jumat, 31-Mei-2024]
+
+
 ## Pengujian Aplikasi
 ![image](https://github.com/abeleka31/TugasProjek18/assets/144081265/a1c6ea19-0302-41c0-a92b-098508f8496d)
 
 
 ## Screenshot Aplikasi
-1. **Tampilan Awal:** Dua tombol untuk User dan Admin.
+![Screenshot 2024-05-31 173317](https://github.com/abeleka31/TugasProjek18/assets/144081265/db2d7a46-36b8-4cf3-ae10-beef165785f1)
+
+![Screenshot 2024-05-31 173502](https://github.com/abeleka31/TugasProjek18/assets/144081265/175e2fe9-8fee-48dc-a843-ae4568a995d9)
+
+1. **Tampilan Awal:** Dua tombol untuk User dan Admin, jika menekan tombol User maka akan di arahkan ke tampilan menuutama.
+
+![Screenshot 2024-05-31 173555](https://github.com/abeleka31/TugasProjek18/assets/144081265/0f62ed73-9564-49e3-8fb7-b475a28ac1a3)
+
 2. **Tampilan Menu User:** Pilihan menu yang dapat diinput, ditambah, atau dikurangi.
+
+![Screenshot 2024-05-31 173713](https://github.com/abeleka31/TugasProjek18/assets/144081265/7b5d8fb1-2615-448b-929d-326d488ea7aa)
+
 3. **Tampilan Verifikasi Pesanan:** Menampilkan data pesanan dengan pilihan pembayaran dan konfirmasi.
+
+![Screenshot 2024-05-31 173725](https://github.com/abeleka31/TugasProjek18/assets/144081265/d5790439-d83b-4044-952e-1b0d2d244586)
+
 4. **Tampilan Akhir:** Konfirmasi pesanan berhasil.
-5. **Tampilan Admin:** Daftar pesanan dan menu serta kemampuan untuk menambah menu.
+
+5. **Tampilan ![Screenshot 2024-05-31 180240](https://github.com/abeleka31/TugasProjek18/assets/144081265/1f22a826-9f3b-4210-a6b0-a6b2302acde8)
+
+Admin:** Daftar history pesanan dan menu serta kemampuan untuk menambah menu, mengedit menu, dan menghapus menu.
