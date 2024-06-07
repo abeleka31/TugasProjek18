@@ -66,10 +66,8 @@ Untuk mengatasi masalah ini, kami mengembangkan aplikasi **Eazys Order** yang me
 - **Konsep OOP:** Enkapsulasi dan pewarisan.
 
 ## Pengujian Aplikasi
-1. **Percobaan Pemesanan:** Memastikan pembayaran tidak dapat dilanjutkan dengan nilai uang yang tidak mencukupi.
-2. **Pengisian Data:** Memastikan tidak dapat melanjutkan pembayaran jika data tidak lengkap.
-3. **Format File Menu:** Menolak input selain file berjenis foto.
-4. **Pengeditan Pesanan:** Memungkinkan admin mengubah atau menghapus pesanan setelah dikonfirmasi.
+![image](https://github.com/abeleka31/TugasProjek18/assets/144081265/a1c6ea19-0302-41c0-a92b-098508f8496d)
+
 
 ## Screenshot Aplikasi
 1. **Tampilan Awal:** Dua tombol untuk User dan Admin.
